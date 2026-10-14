@@ -130,6 +130,8 @@ button{font:inherit;color:inherit}
 .gauge .track{height:14px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
 .gauge .track i{display:block;height:100%;background-image:repeating-linear-gradient(90deg,transparent 0 6px,var(--surface-2) 6px 9px),linear-gradient(90deg,var(--y),var(--ol),var(--o),var(--od),var(--r));width:0;transition:width .15s linear}
 .gauge .val{min-width:9ch;text-align:right;font-size:.95rem;text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+.numbers{border:1px solid var(--line);background:var(--surface);padding:14px 16px}
+.numbers ul{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;font-size:.95rem}
 .counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
 .counter{position:relative;border:1px solid var(--line);background:var(--surface);padding:14px 12px 12px}
 .counter .v{font-family:var(--display);font-weight:700;font-size:2.3rem;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
@@ -172,8 +174,8 @@ footer .wrap{display:grid;gap:6px}
 </style>
 <!-- body -->
 <div class="top"><div class="wrap">
-  <a class="brand" href="#">VVC in Silicon <span>· my PhD, explained</span></a>
-  <nav aria-label="Pages"><a href="#s1">Story</a><a href="#record">Record</a><a href="explainer.html">Walkthrough</a><a href="platforms.html">Chips 101</a><a href="https://theses.hal.science/tel-04477217" target="_blank" rel="noopener">Thesis PDF</a></nav>
+  <a class="brand" href="#">VVC in Silicon <span>· my PhD, as I would tell it to a friend</span></a>
+  <nav aria-label="Pages"><a href="#s1">The story</a><a href="#record">The record</a><a href="explainer.html">The long version</a><a href="platforms.html">Chips 101</a><a href="https://theses.hal.science/tel-04477217" target="_blank" rel="noopener">Thesis PDF</a></nav>
 </div></div>
 
 <header class="hero" id="hero">
@@ -182,18 +184,18 @@ footer .wrap{display:grid;gap:6px}
       <div class="eyebrow">PhD · INSA Rennes / IETR · 2019 – 2022</div>
       <h1 style="margin-top:12px;font-size:clamp(1.8rem,3.9vw,3rem)">Efficient hardware designs of the new Versatile Video Coding (VVC) tools for ASIC platforms</h1>
       <div class="rainbow" aria-hidden="true"></div>
-      <p class="lede">Three new tools of the VVC / H.266 standard, turned into small, cool, real-time hardware blocks for a 4K encoder and decoder chip.</p>
-      <p class="who"><b style="color:var(--fg)">Ibrahim Farhat</b> · PhD thesis, INSA Rennes / IETR · defended 31 May 2022</p>
+      <p class="lede">For three years I worked on getting three of the new VVC tools to run in real time on a chip, for a company’s 4K encoder and decoder. This page is how I explain it when someone asks: ten short scenes, and more detail wherever you want it.</p>
+      <p class="who"><b style="color:var(--fg)">Ibrahim Farhat</b> · INSA Rennes / IETR · defended in Rennes on 31 May 2022</p>
       <div class="cta">
-        <button class="btn primary" id="playAll">▶ Play the story <span class="mono" id="playAllTime"></span></button>
-        <a class="btn" href="#s1">Read in 10 scenes ↓</a>
-        <a class="btn" href="explainer.html">Go deep: narrated walkthrough</a>
+        <button class="btn primary" id="playAll">▶ Listen <span class="mono" id="playAllTime"></span></button>
+        <a class="btn" href="#s1">Read it ↓</a>
+        <a class="btn" href="explainer.html">The long version</a>
       </div>
     </div>
     <div class="hero3d">
       <div class="c3d" id="chip3d" aria-label="3D model of a codec chip; the blocks designed in this thesis are highlighted" role="img"></div>
       <span class="hint">drag to rotate</span>
-      <div class="legend"><span><i style="background:var(--c3-accent)"></i>designed in this thesis</span><span><i style="background:var(--c3-block)"></i>the rest of the codec chip (simplified)</span></div>
+      <div class="legend"><span><i style="background:var(--c3-accent)"></i>the blocks I designed</span><span><i style="background:var(--c3-block)"></i>the rest of the chip, simplified</span></div>
     </div>
   </div>
   <div class="mosaic" id="mosaic" aria-hidden="true"></div>
@@ -209,9 +211,9 @@ footer .wrap{display:grid;gap:6px}
       <div class="c3d" id="bits3d" role="img" aria-label="3D bar chart: relative bit rate of H.264, HEVC and VVC at equal quality, and relative encoder complexity of HEVC and VVC"></div>
     </div>
     <div class="text">
-      <span class="num">Scene 1 / 10</span>
-      <h2>Every new standard halves the bits</h2>
-      <p class="say">VVC (2020) needs <b>40–50 % fewer bits</b> than HEVC for the same picture. The price: an encoder about <b>10×</b> more complex, a decoder about 2×.</p>
+      <span class="num">1 / 10</span>
+      <h2>Where this starts</h2>
+      <p class="say">Every few years a new video standard comes out that halves the bits for the same picture. VVC did that in 2020. The catch is that the encoder became about ten times heavier and the decoder about twice. Somebody has to pay that bill, and in a product it gets paid in silicon.</p>
       <div class="tools"><button class="btn small play" data-scene="01">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
@@ -234,16 +236,16 @@ footer .wrap{display:grid;gap:6px}
       <div class="c3d" id="dct3d" role="img" aria-label="3D animation of an 8 by 8 block: pixel values, then the residual after prediction, then transform coefficients concentrated in one corner, then the quantised coefficients, most of them zero"><div class="stage-label" id="dctLabel">1 · an 8×8 block of pixels</div></div>
     </div>
     <div class="text">
-      <span class="num">Scene 2 / 10</span>
-      <h2>How a codec works</h2>
-      <p class="say"><b>Predict</b> the block, keep the difference, <b>transform</b> it so the energy gathers in one corner, <b>quantise</b>, write the few values left. The decoder reverses it, and the encoder contains a full decoder.</p>
+      <span class="num">2 / 10</span>
+      <h2>What a codec actually does</h2>
+      <p class="say">I have explained this at a lot of dinners. A codec guesses each block of the picture from what it already has, keeps only the difference, and uses a transform to squeeze that difference into one corner. Then it rounds the small values away. The decoder undoes it all, and the encoder carries a full decoder inside so that both sides see exactly the same picture.</p>
       <div class="tools"><button class="btn small play" data-scene="02">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
           <li>Every modern codec is a hybrid coder: intra prediction (from neighbours in the picture) or inter prediction (from previous pictures, with motion), then transform, quantisation and entropy coding of the residual.</li>
           <li>The encoder reconstructs exactly what the decoder will see, because future predictions must use the same pixels on both sides. In-loop filters clean that reconstruction before it becomes a reference.</li>
           <li>Every encoder decision minimises a rate–distortion cost J = D + λ·R. Codecs are compared by Bjøntegaard delta rate under JVET common test conditions.</li>
-          <li>The animation computes a real 2-D DCT of its residual and quantises with a step of 16; the count of non-zero coefficients is the actual result.</li>
+          <li>The animation runs a real 2-D DCT on its residual and quantises with a step of 16; the count of non-zero coefficients is the actual result, not a drawing.</li>
         </ul>
         <figure><img src="assets/figures/fig_3_5.png" alt="The VVC encoder with the decoder loop inside it" loading="lazy"><figcaption>The VVC encoder with the decoder loop (grey box) inside it. Thesis Fig. 3.5.</figcaption></figure>
         <p class="src"><b>Sources:</b> thesis §3.2–3.4.</p>
@@ -299,9 +301,9 @@ footer .wrap{display:grid;gap:6px}
       </svg><figcaption>Orange: the three tools designed in the thesis, on both the encoder and the decoder side.</figcaption></figure>
     </div>
     <div class="text">
-      <span class="num">Scene 3 / 10</span>
-      <h2>What VVC adds, and what the thesis builds</h2>
-      <p class="say">Two new transforms, <b>MTS</b> and <b>LFNST</b>, and a new in-loop filter, <b>ALF</b>. Real compression gains, expensive in hardware. The thesis builds exactly these three, for the decoder and the encoder.</p>
+      <span class="num">3 / 10</span>
+      <h2>The three tools I worked on</h2>
+      <p class="say">VVC added two transforms, MTS and LFNST, and a smarter in-loop filter, ALF. Each is worth a few percent of bit rate, which in this field is a lot. They are also the kind of thing that looks small in the standard and large in hardware. My thesis is these three tools, built for the decoder and for the encoder.</p>
       <div class="tools"><button class="btn small play" data-scene="03">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
@@ -324,9 +326,9 @@ footer .wrap{display:grid;gap:6px}
       <figure><div id="energyChart" class="chart"></div><figcaption>Energy for the same H.264 encoding, relative to a dedicated circuit (Hameed et al., ISCA 2010). Logarithmic scale.</figcaption></figure>
     </div>
     <div class="text">
-      <span class="num">Scene 4 / 10</span>
-      <h2>Why a chip</h2>
-      <p class="say">Live video must arrive <b>on time, every frame</b>. Software cannot reach a codec's best quality in real time; a custom chip (ASIC) does the work at a small fraction of the energy. The price: nothing can change after manufacture.</p>
+      <span class="num">4 / 10</span>
+      <h2>Why a chip and not software</h2>
+      <p class="say">Live video has a deadline every frame. The company I worked with makes fanless boxes that ride on vehicles and in backpacks, so software was never on the table: a processor spends most of its energy shuffling instructions and data, not computing. A chip built for one job skips all of that. The other side of the deal is that a chip cannot be patched, so the design has to be right before it is made.</p>
       <div class="tools"><button class="btn small play" data-scene="04">▶ Listen</button><a class="btn small" href="platforms.html">CPU · GPU · FPGA · ASIC, level by level →</a></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
@@ -349,9 +351,9 @@ footer .wrap{display:grid;gap:6px}
       <div class="c3d" id="flow3d" role="img" aria-label="3D animation: four lanes of samples enter the inverse LFNST, the one-dimensional inverse MTS and the transpose memory at four samples per clock cycle"><div class="stage-label" id="flowClock">cycle 0 · 0 samples</div></div>
     </div>
     <div class="text">
-      <span class="num">Scene 5 / 10</span>
-      <h2>The contract: samples per cycle</h2>
-      <p class="say">4K at 60 fps through a 450 MHz chip: the transform must absorb <b>4 samples every clock cycle</b>, with the <b>same latency for every block size</b> so modules chain without stalls. Then the score is area, memory and power.</p>
+      <span class="num">5 / 10</span>
+      <h2>The one rule everything came from</h2>
+      <p class="say">4K at 60 frames per second through a 450 MHz chip means the transform has to swallow four samples every clock cycle, whatever the block size. And every block has to take the same number of cycles, so the blocks behind it never wait. Meet that, then make the thing as small, as lean on memory and as cool as you can. That was the job, for three years.</p>
       <div class="tools"><button class="btn small play" data-scene="05">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
@@ -375,14 +377,14 @@ footer .wrap{display:grid;gap:6px}
       <figure><div id="rmChart" class="chart"></div><figcaption>1-D inverse MTS at 2 samples/cycle, cell area after synthesis (28 nm, 450 MHz). Thesis Table 5.4.</figcaption></figure>
     </div>
     <div class="text">
-      <span class="num">Scene 6 / 10</span>
-      <h2>The transform in silicon</h2>
-      <p class="say">Instead of hard-wiring every constant, <b>64 shared multipliers</b> read their coefficients from a small ROM: <b>63 % less silicon</b> than the multiplier-less design. LFNST was added the same way, the <b>first hardware LFNST</b> published.</p>
+      <span class="num">6 / 10</span>
+      <h2>The transform, and a result that surprised us</h2>
+      <p class="say">The textbook way to build a transform in hardware is to hard-wire its constants, and for HEVC that was the cheapest. VVC has many more transform types and sizes, so I built both versions, and the opposite won: 64 shared multipliers reading their coefficients from a small ROM took 63 % less silicon. The LFNST went in the same way. As far as we could find, nobody had put LFNST in hardware before.</p>
       <div class="tools"><button class="btn small play" data-scene="06">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
-          <li>Design 1 (ICASSP 2020): 1-D inverse MTS at 2 samples/cycle. Constant multipliers (shift-and-add, one module per size and type): 266,315 cell area. Regular multipliers (32 shared, 1,872 coefficients in a 17.4 Kbit ROM): 96,849. The multi-standard engine also covers AVC and HEVC.</li>
-          <li>Design 2 (IEEE TCE 2021): 4 samples/cycle. MTS scales to 64 multipliers (+55 % area for 2× throughput, 138.9 Kgates); inverse LFNST added with its own 64 multipliers and a 64 Kbit ROM of the 8 kernels (109.2 Kgates). Unified: 128 multipliers, fixed latency, bypass delay line for blocks without LFNST.</li>
+          <li>My first design (ICASSP 2020): 1-D inverse MTS at 2 samples/cycle. Constant multipliers (shift-and-add, one module per size and type): 266,315 cell area. Regular multipliers (32 shared, 1,872 coefficients in a 17.4 Kbit ROM): 96,849. The multi-standard engine also covers AVC and HEVC.</li>
+          <li>The second (IEEE TCE 2021): 4 samples/cycle. MTS scales to 64 multipliers (+55 % area for 2× throughput, 138.9 Kgates); inverse LFNST added with its own 64 multipliers and a 64 Kbit ROM of the 8 kernels (109.2 Kgates). Unified: 128 multipliers, fixed latency, bypass delay line for blocks without LFNST.</li>
           <li>Tricks used: butterfly decomposition of DCT-2 (sizes nest), DCT-8 = DST-7 with reversed inputs and flipped signs, zeroing of high frequencies for 64-point DCT-2 and 32-point DST-7/DCT-8.</li>
           <li>Cost in perspective: at equal throughput the VVC transform (MTS + LFNST, 163,672 gates) is about 4× the HEVC transform (41,500 gates); MTS alone about 2×.</li>
           <li>Encoder side: three transform chains of 32 samples/cycle; the forward DCT-2 shares its core with the inverse DCT-2 (symmetric odd kernels), LFNST kept separate.</li>
@@ -401,9 +403,9 @@ footer .wrap{display:grid;gap:6px}
       <div class="c3d" id="alf3d" role="img" aria-label="3D model of the 7 by 7 diamond filter kernel with bar heights for its coefficients, rotating and flipping as the block class changes; a smaller 5 by 5 chroma diamond beside it"><div class="stage-label" id="alfLabel">class 3 · no transform</div></div>
     </div>
     <div class="text">
-      <span class="num">Scene 7 / 10</span>
-      <h2>A filter that learns its coefficients</h2>
-      <p class="say">ALF is a <b>7×7 diamond</b> whose coefficients the encoder chooses and sends. Each 4×4 block picks one of <b>25 classes</b> and rotates or flips the kernel. One engine with <b>26 multipliers</b> filters luma, chroma and the cross-component filter.</p>
+      <span class="num">7 / 10</span>
+      <h2>ALF, the filter that learns</h2>
+      <p class="say">ALF is a 7×7 diamond-shaped filter whose coefficients the encoder works out and sends along. Each 4×4 block gets sorted into one of 25 classes, and the kernel is rotated or flipped to fit. I liked this one. Because of its symmetry, one engine with 26 multipliers handles luma, chroma and the cross-component filter.</p>
       <div class="tools"><button class="btn small play" data-scene="07">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
@@ -427,16 +429,16 @@ footer .wrap{display:grid;gap:6px}
       <div class="gauge"><span>memory</span><span class="track"><i id="memBar"></i></span><span class="val" id="memVal">0 Kbit</span></div>
     </div>
     <div class="text">
-      <span class="num">Scene 8 / 10</span>
-      <h2>The memory problem</h2>
-      <p class="say">A filter needs its <b>eight neighbours</b>, so blocks wait in memory. Feeding <b>Cr, Cb, Y, Y</b> in turn keeps the co-located luma in the pipeline: only two lines of blocks are stored, <b>75 % less memory</b>.</p>
+      <span class="num">8 / 10</span>
+      <h2>The memory problem, the part I am proudest of</h2>
+      <p class="say">To filter one block, ALF needs the eight blocks around it, so blocks have to wait in memory. If you feed the filter in the order Cr, Cb, Y, Y, the luma that the chroma filter needs is already in the pipeline, and only two lines of blocks have to be kept. That cut the memory by three quarters. Try the three orders above and watch the gauge.</p>
       <div class="tools"><button class="btn small play" data-scene="08">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
-          <li>Three feeding orders for a 128×128 CTU (4:2:2, 10-bit): A, whole luma first, keeps the entire luma CTB for the cross-component filter: 193.28 Kbit. B, chroma first, parks the filtered chroma until luma arrives: 213.12 Kbit. C, interleaved Cr, Cb, Y, Y per CTU line: two lines and two columns of blocks per component, 50.56 Kbit (35.84 for 4:2:0).</li>
+          <li>I compared three feeding orders for a 128×128 CTU (4:2:2, 10-bit): A, whole luma first, keeps the entire luma CTB for the cross-component filter: 193.28 Kbit. B, chroma first, parks the filtered chroma until luma arrives: 213.12 Kbit. C, interleaved Cr, Cb, Y, Y per CTU line: two lines and two columns of blocks per component, 50.56 Kbit (35.84 for 4:2:0).</li>
           <li>Second problem: a 4×4 block at 2 pixels/cycle is an 8-cycle window, but 8 neighbour reads plus 1 write take 9 cycles. Consecutive blocks share 6 of their 9 neighbours, so the second block needs only 3 operations: 12 per pair in a 16-cycle window.</li>
           <li>Two RAMs: one serving a 4×4 block per cycle (160-bit port), one holding a one-sample column for the cross-component filter (40-bit port). The memory module is 48 % of the ALF area.</li>
-          <li>The animation is a simplified model: lifted blocks are those still held; the gauge rises to the thesis value for each order.</li>
+          <li>The animation is a simplified model: the lifted blocks are the ones still held in memory, and the gauge rises to the value I measured for each order.</li>
         </ul>
         <figure><img src="assets/figures/fig_9_6.png" alt="Interleaved scanning order for a 32x32 CTU and the input/output sequence over time" loading="lazy"><figcaption>The proposed scanning for a 32×32 CTU (4:2:0) and the block sequence over time. Thesis Fig. 9.6.</figcaption></figure>
         <p class="src"><b>Sources:</b> thesis §9.3–9.4, Tables 9.3–9.6; IEEE TCE 2022.</p>
@@ -449,29 +451,25 @@ footer .wrap{display:grid;gap:6px}
 <section class="scene" id="s9" data-scene="09">
   <div class="wrap">
     <div class="visual">
-      <div class="counters" id="counters">
-        <div class="counter acc"><div class="v" data-count="128">0</div><div class="k">multipliers, inverse MTS + LFNST, 4 samples/cycle</div></div>
-        <div class="counter acc"><div class="v" data-count="26">0</div><div class="k">multipliers, ALF decoder, 2 pixels/cycle</div></div>
-        <div class="counter"><div class="v" data-count="50.56" data-dec="2">0</div><div class="k">Kbit of RAM for ALF (−75 %)</div></div>
-        <div class="counter"><div class="v" data-count="9.6" data-dec="1">0</div><div class="k">mW, ALF decoder at 0.8 V</div></div>
-        <div class="counter"><div class="v" data-count="450">0</div><div class="k">MHz on TSMC 28 nm</div></div>
-        <div class="counter"><div class="v" data-count="100000" data-fmt="k">0</div><div class="k">random test vectors per transform module, bit-exact</div></div>
-        <div class="counter acc"><div class="v" data-count="3">0</div><div class="k">firsts: HW LFNST · complete HW ALF · HW ALF encoder</div></div>
-        <div class="counter"><div class="v" data-count="4">0</div><div class="k">papers: ICASSP 2020 · TCE 2021 · TCE 2022 · PCS 2022</div></div>
-      </div>
+      <div class="numbers"><div class="eyebrow">In numbers</div><ul>
+        <li>Inverse MTS + LFNST: 128 multipliers, 4 samples per cycle.</li>
+        <li>ALF decoder: 26 multipliers, 2 pixels per cycle, 50.6 Kbit of RAM, about 10 mW.</li>
+        <li>All of it synthesised at 450 MHz on TSMC 28 nm, verified against the reference software.</li>
+        <li>Papers: ICASSP 2020, IEEE TCE 2021, IEEE TCE 2022, PCS 2022.</li>
+      </ul></div>
       <figure><div id="hevcChart" class="chart"></div><figcaption>1-D inverse transform at 2 samples/cycle, gates after synthesis. Thesis Tables 6.10–6.11.</figcaption></figure>
     </div>
     <div class="text">
-      <span class="num">Scene 9 / 10</span>
-      <h2>The results</h2>
-      <p class="say">Every block: 450 MHz on 28 nm, <b>fixed latency</b>, <b>bit-exact</b> against the reference software, integrated in a professional real-time encoder and decoder. Four papers, three firsts.</p>
-      <div class="tools"><button class="btn small play" data-scene="09">▶ Listen</button><a class="btn small" href="explainer.html#step-19">Full scoreboard →</a></div>
+      <span class="num">9 / 10</span>
+      <h2>What came out of it</h2>
+      <p class="say">Every block runs at 450 MHz on a 28 nm process, with a fixed latency, and matches the reference software bit for bit: a hundred thousand random test vectors for the transforms, whole encoded sequences for the filter. They went into the company’s real-time encoder and decoder, and four papers came out of them. One compromise still bothers me a little: the encoder-side ALF only handles luma and 64×64 blocks, because the full version did not fit the cycle budget.</p>
+      <div class="tools"><button class="btn small play" data-scene="09">▶ Listen</button><a class="btn small" href="explainer.html#step-19">All the numbers, in the long version →</a></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
           <li>Decoder: inverse MTS 64 RM, 138.9 Kgates; inverse LFNST 64 RM, 109.2 Kgates, 64 Kbit ROM; ALF 26 RM, 66,997 µm², 50.56 Kbit RAM, 9.6 mW at 0.8 V (6.7 mW at 0.65 V for +12 % area).</li>
           <li>Encoder: transform loop as three chains of 32 samples/cycle with a shared DCT/iDCT core; ALF luma filter 24 RM, 41,984 µm², 13.6 mW; ALF decision (4 filters + SSD) 48 RM, 58,628 µm², 101.6 Kbit, 17.9 mW. Encoder ALF limited to luma, CTU 64 and 4 of 16 filter sets.</li>
           <li>Verification: 100,000 pseudo-random vectors per transform module against VTM procedures; ALF against trace files from the instrumented software encoder, sequences from 64×64 to 1080p in 8, 10 and 12 bits.</li>
-          <li>Open roads named in the thesis: one 64-multiplier core for MTS and LFNST; a hybrid constant/regular-multiplier transform; learned pruning of the encoder's transform search; a chroma filter in the encoder ALF.</li>
+          <li>What I would do next, if I went back to it: one 64-multiplier core shared by MTS and LFNST; a hybrid transform with hard-wired constants for DCT-2 only; a learned shortcut for the encoder's transform search; and a chroma filter in the encoder ALF.</li>
         </ul>
         <p class="src"><b>Sources:</b> thesis §5.4, §6.5, §9.6, §10.4, Ch. 11; Appendix A.</p>
       </details>
@@ -490,9 +488,9 @@ footer .wrap{display:grid;gap:6px}
       </div>
     </div>
     <div class="text">
-      <span class="num">Scene 10 / 10</span>
-      <h2>People and record</h2>
-      <p class="say">Directed by <b>Daniel Ménard</b> and <b>Olivier Déforges</b>, supervised by <b>Wassim Hamidouche</b>, at the IETR laboratory of INSA Rennes, with an industrial partner. Defended in Rennes on 31 May 2022.</p>
+      <span class="num">10 / 10</span>
+      <h2>The people</h2>
+      <p class="say">Daniel Ménard and Olivier Déforges directed the thesis, and Wassim Hamidouche supervised me day to day, at the IETR lab of INSA Rennes. The company side gave me the constraints and a real chip to ship into. I defended in Rennes on 31 May 2022. If you want the long version, the walkthrough goes through all of it, chapter by chapter.</p>
       <div class="tools"><button class="btn small play" data-scene="10">▶ Listen</button></div>
     </div>
   </div>
@@ -502,7 +500,7 @@ footer .wrap{display:grid;gap:6px}
 <section class="record" id="record">
   <div class="wrap">
     <div class="eyebrow">Record</div>
-    <h2 style="margin-top:6px">The thesis, in one place</h2>
+    <h2 style="margin-top:6px">The record, for reference</h2>
     <dl class="kv">
       <dt>Title</dt><dd>Efficient hardware designs of the new Versatile Video Coding (VVC) tools for ASIC platforms<br><span style="color:var(--muted)">Conceptions matérielles efficaces pour des nouveaux outils du standard VVC ciblant les plates-formes ASIC</span></dd>
       <dt>Author</dt><dd>Ibrahim (Brahim) Farhat</dd>
@@ -520,7 +518,7 @@ footer .wrap{display:grid;gap:6px}
     </ol>
     <div class="links">
       <a class="btn primary" href="https://theses.hal.science/tel-04477217" target="_blank" rel="noopener">Thesis manuscript (HAL, open access)</a>
-      <a class="btn" href="explainer.html">Narrated walkthrough · 21 steps, 30 min</a>
+      <a class="btn" href="explainer.html">The long version · 21 steps, 30 min</a>
       <a class="btn" href="platforms.html">The Silicon Ladder · CPU, GPU, FPGA, ASIC + quiz</a>
       <a class="btn" href="https://scholar.google.com/citations?user=6gbNelQAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
       <a class="btn" href="https://www.linkedin.com/in/ibrahim-farhat-470755115/" target="_blank" rel="noopener">LinkedIn</a>
@@ -529,8 +527,8 @@ footer .wrap{display:grid;gap:6px}
 </section>
 
 <footer><div class="rainbow" aria-hidden="true"></div><div class="wrap">
-  <div>Built from the thesis manuscript (HAL tel-04477217) and its four papers. Figures in the “Go deeper” panels are reproduced from the manuscript; 3D scenes are illustrations of the mechanisms, with numbers taken from the thesis tables cited under each.</div>
-  <div>3D rendering: three.js. Voice: neural text-to-speech. Theme follows your system setting.</div>
+  <div>I made this page from my manuscript (HAL tel-04477217) and the four papers. The figures in the “Go deeper” panels are from the thesis; the 3D scenes are my own illustrations of the mechanisms, with the numbers taken from the tables cited under each.</div>
+  <div>The voice is synthetic for now. 3D with three.js. Colours follow your system theme.</div>
 </div></footer>
 
 <audio id="aud" preload="none"></audio>
@@ -791,7 +789,7 @@ footer .wrap{display:grid;gap:6px}
   if ('IntersectionObserver' in window) {
     const seen = new Set(); const io = new IntersectionObserver(entries => entries.forEach(en => { if (!en.isIntersecting || seen.has(en.target)) return; seen.add(en.target); if (en.target.classList.contains('chart')) animateChart(en.target); else animateCounters(en.target); }), {threshold: 0.3});
     document.querySelectorAll('.chart, #counters').forEach(e => io.observe(e));
-  } else { document.querySelectorAll('.chart').forEach(animateChart); animateCounters(document.getElementById('counters')); }
+  } else { document.querySelectorAll('.chart').forEach(animateChart); const cc = document.getElementById('counters'); if (cc) animateCounters(cc); }
 
   /* ---------- pixel mosaic strip: blocks of the five gradient colours, deterministic pattern ---------- */
   (function(){ const el = document.getElementById('mosaic'); if (!el) return; const cols = ['#FFD800', '#FFAF00', '#FF8205', '#FA500F', '#E10500']; const n = 120, rows = 2; let seed = 7; const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
@@ -816,8 +814,8 @@ footer .wrap{display:grid;gap:6px}
   document.querySelectorAll('.play').forEach(b => { const d = SCENE_AUDIO[b.dataset.scene]; if (!d) { b.hidden = true; return; } b.textContent = '▶ Listen · ' + Math.floor(d / 60) + ':' + String(Math.round(d % 60)).padStart(2, '0'); });
   function setBtn(id, on){ document.querySelectorAll('.play').forEach(b => { if (b.dataset.scene !== id) return; const d = SCENE_AUDIO[id] || 0; b.textContent = (on ? '⏸ Playing' : '▶ Listen') + ' · ' + Math.floor(d / 60) + ':' + String(Math.round(d % 60)).padStart(2, '0'); }); }
   function play(id, scroll){ if (current) setBtn(current, false); current = id; aud.src = 'assets/audio/scene-' + id + '.mp3'; const p = aud.play(); if (p && p.catch) p.catch(() => {}); setBtn(id, true); if (scroll) { const sec = document.getElementById('s' + Number(id)); if (sec) sec.scrollIntoView({behavior: REDUCED ? 'auto' : 'smooth', block: 'start'}); } }
-  function stop(){ aud.pause(); if (current) setBtn(current, false); current = null; queue = []; playAll.textContent = '▶ Play the story · ' + Math.round(total / 60) + ' min'; }
-  aud.addEventListener('ended', () => { if (current) setBtn(current, false); current = null; if (queue.length) play(queue.shift(), true); else playAll.textContent = '▶ Play the story · ' + Math.round(total / 60) + ' min'; });
+  function stop(){ aud.pause(); if (current) setBtn(current, false); current = null; queue = []; playAll.textContent = '▶ Listen · ' + Math.round(total / 60) + ' min'; }
+  aud.addEventListener('ended', () => { if (current) setBtn(current, false); current = null; if (queue.length) play(queue.shift(), true); else playAll.textContent = '▶ Listen · ' + Math.round(total / 60) + ' min'; });
   aud.addEventListener('error', () => { stop(); });
   document.addEventListener('click', e => { const b = e.target.closest('.play'); if (!b) return; if (current === b.dataset.scene && !aud.paused) { aud.pause(); setBtn(current, false); current = null; } else { queue = []; play(b.dataset.scene, false); } });
   playAll.addEventListener('click', () => { if (current || queue.length) { stop(); return; } queue = ids.slice(1); playAll.textContent = '⏹ Stop'; play(ids[0], true); });
