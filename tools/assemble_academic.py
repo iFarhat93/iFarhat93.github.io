@@ -276,7 +276,7 @@ def page(name, email):
     <section class="panel" id="panel-about">
       <h1 class="page__title">About me</h1>
       <p>I am a Senior R&amp;D Researcher at the <a href="https://www.tii.ae/" target="_blank" rel="noopener">Technology Innovation Institute</a> (TII) in Abu Dhabi, in the AI and Digital Science Research Center (AIDRC). I did my PhD at INSA Rennes, in the IETR laboratory, on hardware designs for the new coding tools of the VVC / H.266 standard, built for a real-time 4K encoder and decoder chip, and I defended it in May 2022.</p>
-      <p>Since then I have moved to AI, my direction for the future: 3D reconstruction with NeRF and 3D Gaussian splatting, edge AI and model compression for the Falcon LLM models, and now models and systems for robotic VLAs and agentic coding for robots. The <a href="#phd">PhD</a> page explains the thesis in ten short scenes, with more depth where you want it.</p>
+      <p>Since then I have moved to AI, worked on 3D reconstruction with NeRF and 3D Gaussian splatting, edge AI and model compression for the Falcon LLM models, and now models and systems for robotic VLAs and agentic coding for robots. The <a href="#phd">PhD</a> page explains the thesis in ten short scenes, with more depth where you want it.</p>
       <h2>News</h2>
       <ul class="news">
         <li><span class="date">2026</span><span>Q-Codec, reinforcement-learning-based adaptive encoding for immersive aerial video, accepted at IEEE WCNC 2026; ALRM, an agentic LLM for robotic manipulation, on arXiv.</span></li>
@@ -287,12 +287,7 @@ def page(name, email):
       </ul>
       <h2>Main research interests</h2>
       <ul class="interests">
-        <li>Video coding standards (HEVC, VVC) and their real-time implementation.</li>
-        <li>Hardware architectures for video codecs: transforms, in-loop filters, memory and power.</li>
-        <li>Immersive, 360° and aerial video streaming, and AI-based compression.</li>
-        <li>3D reconstruction: NeRF and 3D Gaussian splatting.</li>
-        <li>Edge AI and model compression for large language models (Falcon).</li>
-        <li>Vision-language-action models and agentic coding for robotics.</li>
+        <li>Edge AI and robotic models.</li>
       </ul>
     </section>
 
