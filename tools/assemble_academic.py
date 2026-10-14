@@ -212,6 +212,26 @@ blockquote.pub .venue{font-style:italic}
 .pubs li{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:.6em;font-size:.9em;padding:.5em 0;border-bottom:1px solid var(--line)}
 .pubs .tag{color:var(--muted)}
 .links{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
+
+/* 2D animated figures */
+.anim{position:relative}
+.anim svg{width:100%;height:auto;display:block}
+.anim text{font-family:var(--body);font-size:12px;fill:var(--fg)}
+.anim .small{font-size:10.5px;fill:var(--muted)}
+.anim .b{font-weight:700}
+.anim .val{font-family:var(--mono);font-size:12px;fill:var(--fg)}
+.anim .bar{fill:var(--bar)} .anim .bar.emph{fill:var(--accent)}
+.anim .axis{stroke:var(--line);stroke-width:1.5}
+.anim .grid{fill:none;stroke:var(--line);stroke-width:1}
+.anim .cell{fill:var(--accent)} .anim .cell.centre{stroke:var(--fg);stroke-width:1.5}
+.anim .box{fill:var(--surface-2);stroke:var(--fg);stroke-width:1.2}
+.anim .glow{fill:var(--accent);opacity:0}
+.anim .sample{fill:var(--accent)} .anim .res{fill:var(--c3-green)}
+.anim .mcell{fill:var(--accent);fill-opacity:.25;stroke:var(--line);stroke-width:1}
+.anim .beam{stroke:var(--c3-blue);stroke-width:3;opacity:0}
+.anim .stage-tools{position:static;margin:8px 0 2px;flex-wrap:wrap;justify-content:flex-start}
+.anim .lane{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.anim .tile.dim{fill:var(--c3-dim)} .anim .tile.y{fill:var(--c3-y)} .anim .tile.cr{fill:var(--c3-cr)} .anim .tile.cb{fill:var(--c3-cb)} .anim .tile.held{stroke:var(--accent);stroke-width:2.5}
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} .pipe .box.hl{animation:none} }
 '''
 
@@ -256,7 +276,7 @@ def page(name, email):
     <section class="panel" id="panel-about">
       <h1 class="page__title">About me</h1>
       <p>I am a Senior R&amp;D Researcher at the <a href="https://www.tii.ae/" target="_blank" rel="noopener">Technology Innovation Institute</a> (TII) in Abu Dhabi, in the AI and Digital Science Research Center (AIDRC). I did my PhD at INSA Rennes, in the IETR laboratory, on hardware designs for the new coding tools of the VVC / H.266 standard, built for a real-time 4K encoder and decoder chip, and I defended it in May 2022.</p>
-      <p>Since then I have worked on energy-efficient video decoding on embedded and mobile platforms, live 4K VVC encoding, immersive and 360° video streaming, AI-based compression, and more recently on large language models and robotics. The <a href="#phd">PhD</a> page explains the thesis in ten short scenes, with more depth where you want it.</p>
+      <p>Since then I have moved to AI, my direction for the future: 3D reconstruction with NeRF and 3D Gaussian splatting, edge AI and model compression for the Falcon LLM models, and now models and systems for robotic VLAs and agentic coding for robots. The <a href="#phd">PhD</a> page explains the thesis in ten short scenes, with more depth where you want it.</p>
       <h2>News</h2>
       <ul class="news">
         <li><span class="date">2026</span><span>Q-Codec, reinforcement-learning-based adaptive encoding for immersive aerial video, accepted at IEEE WCNC 2026; ALRM, an agentic LLM for robotic manipulation, on arXiv.</span></li>
@@ -269,10 +289,10 @@ def page(name, email):
       <ul class="interests">
         <li>Video coding standards (HEVC, VVC) and their real-time implementation.</li>
         <li>Hardware architectures for video codecs: transforms, in-loop filters, memory and power.</li>
-        <li>Energy-efficient video decoding on embedded and mobile platforms.</li>
-        <li>Immersive, 360° and aerial video streaming.</li>
-        <li>AI-based video compression and quality enhancement.</li>
-        <li>Large language models and agents for robotics.</li>
+        <li>Immersive, 360° and aerial video streaming, and AI-based compression.</li>
+        <li>3D reconstruction: NeRF and 3D Gaussian splatting.</li>
+        <li>Edge AI and model compression for large language models (Falcon).</li>
+        <li>Vision-language-action models and agentic coding for robotics.</li>
       </ul>
     </section>
 

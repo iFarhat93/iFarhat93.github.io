@@ -1,54 +1,14 @@
 {
   "scenes": [
-    {
-      "id": "01",
-      "title": "Where this starts",
-      "narration": "Every few years a new video standard comes out that halves the bits you need for the same picture. VVC did that in 2020. The catch is that the encoder became about ten times heavier, and the decoder about twice. Somebody has to pay that bill. In a product, it gets paid in silicon. That is where my thesis starts."
-    },
-    {
-      "id": "02",
-      "title": "What a codec actually does",
-      "narration": "I have explained this at a lot of dinners. A codec guesses each block of the picture from what it already has, keeps only the difference, and uses a transform to squeeze that difference into one corner. Then it rounds the small values away. The decoder undoes all of it, and the encoder carries a full decoder inside, so that both sides see exactly the same picture."
-    },
-    {
-      "id": "03",
-      "title": "The three tools I worked on",
-      "narration": "VVC added two transforms, called MTS and LFNST, and a smarter in-loop filter called ALF. Each one is worth a few percent of bit rate, which in this field is a lot. They are also the kind of thing that looks small in the standard and large in hardware. My thesis is these three tools, built for the decoder and for the encoder."
-    },
-    {
-      "id": "04",
-      "title": "Why a chip and not software",
-      "narration": "Live video has a deadline every frame. The company I worked with makes fanless boxes that ride on vehicles and in backpacks, so software was never on the table. A processor spends most of its energy shuffling instructions and data around, not computing. A chip built for one job skips all of that. The other side of the deal is that a chip cannot be patched, so the design has to be right before it is made."
-    },
-    {
-      "id": "05",
-      "title": "The one rule everything came from",
-      "narration": "Everything came from one number. 4K at sixty frames per second, through a chip running at 450 megahertz, means the transform has to swallow four samples every clock cycle, whatever the block size. And every block has to take the same number of cycles, so the blocks behind it never wait. Meet that, and then make the thing as small, as lean on memory, and as cool as you can. That was the job, for three years."
-    },
-    {
-      "id": "06",
-      "title": "The transform, and a result that surprised us",
-      "narration": "The textbook way to build a transform in hardware is to hard-wire its constants, and for HEVC that really was the cheapest. VVC has many more transform types and sizes, so I built both versions, and the opposite won. Sixty-four shared multipliers reading their coefficients from a small memory took sixty-three percent less silicon. The second transform, LFNST, went in the same way. As far as we could find, nobody had put it in hardware before."
-    },
-    {
-      "id": "07",
-      "title": "ALF, the filter that learns",
-      "narration": "ALF is a seven by seven, diamond-shaped filter whose coefficients the encoder works out and sends along with the video. Each four by four block gets sorted into one of twenty-five classes, and the kernel is rotated or flipped to fit. I liked this one. Because of its symmetry, one engine with twenty-six multipliers handles luma, chroma, and the cross-component filter."
-    },
-    {
-      "id": "08",
-      "title": "The memory problem",
-      "narration": "This is the part I am proudest of. To filter one block, ALF needs the eight blocks around it, so blocks have to wait in memory. If you feed the filter in the order Cr, Cb, then two luma blocks, the luma that the chroma filter needs is already in the pipeline, and only two lines of blocks have to be kept. That cut the memory by three quarters."
-    },
-    {
-      "id": "09",
-      "title": "What came out of it",
-      "narration": "Every block runs at 450 megahertz on a 28 nanometre process, with a fixed latency, and matches the reference software bit for bit. They went into the company's real-time encoder and decoder, and four papers came out of them. One compromise still bothers me a little: the encoder-side filter only handles luma and the largest blocks, because the full version did not fit the cycle budget."
-    },
-    {
-      "id": "10",
-      "title": "The people",
-      "narration": "Daniel Ménard and Olivier Déforges directed the thesis, and Wassim Hamidouche supervised me day to day, at the IETR lab of INSA Rennes. The company side gave me the constraints and a real chip to ship into. I defended in Rennes on the thirty-first of May, 2022."
-    }
+    {"id": "01", "title": "The starting point", "narration": "Every few years a new video standard halves the bits needed for the same picture quality. VVC did that in 2020. The cost is computation: the VVC encoder is about ten times heavier than the HEVC encoder, and the decoder about twice. In a product, that computation has to be done in hardware."},
+    {"id": "02", "title": "What a codec does", "narration": "A codec predicts each block of the picture from what it has already coded, keeps only the difference, and applies a transform that concentrates that difference into a few coefficients. The small coefficients are then rounded away. The decoder reverses these steps, and the encoder contains a full decoder, so that both sides reconstruct the same picture."},
+    {"id": "03", "title": "The three tools", "narration": "VVC added two transforms, called MTS and LFNST, and a new in-loop filter called ALF. Each one saves a few percent of bit rate, which is significant in this field. They are small additions in the standard, but costly in hardware. My thesis covers these three tools, for the decoder and for the encoder."},
+    {"id": "04", "title": "Why a chip and not software", "narration": "Live video has a deadline for every frame. The company I worked with makes fanless encoders for vehicles and portable use, so software was not an option. A processor spends most of its energy moving instructions and data rather than computing. A chip designed for one task avoids that. The drawback is that a chip cannot be changed after manufacture, so the design has to be correct before it is made."},
+    {"id": "05", "title": "The throughput requirement", "narration": "4K at sixty frames per second on a 450 megahertz chip means the transform must process four samples every clock cycle, for every block size. Every block must also take the same number of cycles, so that the following blocks never wait. Within that requirement, the goal was to make each block as small as possible in area, memory and power."},
+    {"id": "06", "title": "The transform", "narration": "The usual way to build a transform in hardware is to hard-wire its constants, and for HEVC that was the cheapest option. VVC has many more transform types and sizes, so I built both versions. The result was the opposite: sixty-four shared multipliers reading their coefficients from a small memory took sixty-three percent less silicon. The second transform, LFNST, was added in the same way. We did not find an earlier hardware implementation of LFNST in the literature."},
+    {"id": "07", "title": "ALF, the adaptive loop filter", "narration": "ALF is a seven by seven, diamond-shaped filter whose coefficients the encoder computes and transmits. Each four by four block is classified into one of twenty-five classes, and the kernel is rotated or flipped accordingly. Because the filter is symmetric, one engine with twenty-six multipliers handles luma, chroma, and the cross-component filter."},
+    {"id": "08", "title": "The memory problem", "narration": "To filter one block, ALF needs the eight blocks around it, so blocks have to wait in memory. Feeding the filter in the order Cr, Cb, then two luma blocks keeps the luma needed by the chroma filter already in the pipeline, and only two lines of blocks have to be stored. The memory is reduced by three quarters."},
+    {"id": "09", "title": "Results", "narration": "Every block runs at 450 megahertz on a 28 nanometre process with a fixed latency, and matches the reference software bit for bit. The blocks were integrated in the company's real-time encoder and decoder, and four papers came out of the work. One limitation: the encoder-side filter handles only luma and the largest blocks, because the full version did not fit the cycle budget."},
+    {"id": "10", "title": "The people", "narration": "Daniel Ménard and Olivier Déforges directed the thesis, and Wassim Hamidouche supervised the work day to day, at the IETR laboratory of INSA Rennes. The industrial partner provided the constraints and the chip the designs were integrated into. I defended the thesis in Rennes on the thirty-first of May, 2022."}
   ]
 }
