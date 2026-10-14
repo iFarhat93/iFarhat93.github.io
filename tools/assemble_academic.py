@@ -20,6 +20,9 @@ hero = hero.replace('<div class="eyebrow">PhD · INSA Rennes / IETR · 2019 – 
 main = between(story, '<main>', '</main>')
 record = between(story, '<section class="record" id="record">', '</section>')
 record = record.replace('<h2 style="margin-top:6px">The record, for reference</h2>', '<h2>The record, for reference</h2>')
+LINK = re.compile(r'\s*<a class="btn[^"]*" href="(?:explainer|platforms)\.html[^"]*">[^<]*</a>')
+hero, main, record = LINK.sub('', hero), LINK.sub('', main), LINK.sub('', record)
+assert 'explainer.html' not in hero + main + record and 'platforms.html' not in hero + main + record, 'cross-links remain'
 audio = '<audio id="aud" preload="none"></audio>'
 three = re.search(r'<script src="https://cdnjs\.cloudflare\.com/ajax/libs/three\.js/[^>]*></script>', story).group(0)
 script = re.search(r'<script>\s*\(function\(\)\{.*?\}\)\(\);\s*</script>', story, re.S).group(0)
@@ -217,6 +220,7 @@ ICONS = {
  'mail': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.6-8-5.6zM5.4 7l6.6 4.6L18.6 7H5.4z"/></svg>',
  'in': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3.3 6.4H5.2V19h2.1V9.4zM6.3 5.3a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6zM19 13.6c0-2.9-1.6-4.4-3.7-4.4-1.6 0-2.4.9-2.8 1.5V9.4h-2.1V19h2.1v-5.3c0-1.4.7-2.2 1.9-2.2s1.6.9 1.6 2.2V19H19v-5.4z"/></svg>',
  'cap': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6 10.6V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.4l-6 3.3-6-3.3z"/></svg>',
+ 'hf': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zM8.5 9a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM7.6 13.4h8.8c-.4 2.3-2.2 3.8-4.4 3.8s-4-1.5-4.4-3.8z"/></svg>',
  'git': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>',
 }
 
@@ -235,13 +239,14 @@ def page(name, email):
     <div class="author__avatar"><img id="avatar" src="assets/profile.jpg" alt="Ibrahim Farhat"><div class="initials" id="initials" hidden>IF</div></div>
     <div>
       <h3 class="author__name">Ibrahim Farhat</h3>
-      <p class="author__bio">Researcher, video coding and AI-based compression.</p>
+      <p class="author__bio">Senior R&amp;D Researcher at <a href="https://www.tii.ae/" target="_blank" rel="noopener">TII</a>, AIDRC.</p>
       <ul class="author__urls">
         <li class="lbl">Follow</li>
         <li>{ICONS['pin']}<span>Abu Dhabi, UAE</span></li>
         <li>{ICONS['cap']}<a href="https://scholar.google.com/citations?user=6gbNelQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
         <li>{ICONS['in']}<a href="https://www.linkedin.com/in/ibrahim-farhat-470755115/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li>{ICONS['git']}<a href="https://github.com/iFarhat93" target="_blank" rel="noopener">GitHub</a></li>
+        <li>{ICONS['hf']}<a href="https://huggingface.co/ifarhatTII" target="_blank" rel="noopener">Hugging Face</a></li>
         <li>{ICONS['mail']}<a href="#contact">Email</a></li>
       </ul>
     </div>
@@ -250,15 +255,15 @@ def page(name, email):
   <div class="content">
     <section class="panel" id="panel-about">
       <h1 class="page__title">About me</h1>
-      <p>I am a researcher in video coding and video streaming. I did my PhD at INSA Rennes, in the IETR laboratory, on hardware designs for the new coding tools of the VVC / H.266 standard, built for a real-time 4K encoder and decoder chip, and I defended it in May 2022.</p>
-      <p>Since then I have worked on energy-efficient video decoding on embedded and mobile platforms, live 4K VVC encoding, immersive and 360° video streaming, and more recently on AI-based compression. The <a href="#phd">PhD</a> page explains the thesis in ten short scenes, with more depth where you want it.</p>
+      <p>I am a Senior R&amp;D Researcher at the <a href="https://www.tii.ae/" target="_blank" rel="noopener">Technology Innovation Institute</a> (TII) in Abu Dhabi, in the AI and Digital Science Research Center (AIDRC). I did my PhD at INSA Rennes, in the IETR laboratory, on hardware designs for the new coding tools of the VVC / H.266 standard, built for a real-time 4K encoder and decoder chip, and I defended it in May 2022.</p>
+      <p>Since then I have worked on energy-efficient video decoding on embedded and mobile platforms, live 4K VVC encoding, immersive and 360° video streaming, AI-based compression, and more recently on large language models and robotics. The <a href="#phd">PhD</a> page explains the thesis in ten short scenes, with more depth where you want it.</p>
       <h2>News</h2>
       <ul class="news">
+        <li><span class="date">2026</span><span>Q-Codec, reinforcement-learning-based adaptive encoding for immersive aerial video, accepted at IEEE WCNC 2026; ALRM, an agentic LLM for robotic manipulation, on arXiv.</span></li>
+        <li><span class="date">2025</span><span>The Falcon-H1 technical report is out; the results of our 360° video super-resolution challenge are published in Signal Processing: Image Communication.</span></li>
         <li><span class="date">2024</span><span>ODVISTA, our omnidirectional video dataset for super-resolution and quality enhancement, accepted at IEEE ICIP 2024.</span></li>
         <li><span class="date">2024</span><span>Our survey on real-time immersive aerial video streaming is published in the IEEE Open Journal of the Communications Society.</span></li>
-        <li><span class="date">2023</span><span>Three papers on VVC decoding: OpenVVC on ARM at ISCAS 2023, energy-efficient decoding on mobile at MMSP 2023, and a live 4K VVC intra toolkit at ACM MMSys 2023.</span></li>
-        <li><span class="date">12/2022</span><span>Picture Coding Symposium 2022: hardware design of the Adaptive Loop Filter for a 4K VVC encoder.</span></li>
-        <li><span class="date">31/05/22</span><span>Defended my PhD at INSA Rennes.</span></li>
+        <li><span class="date">05/2022</span><span>Defended my PhD at INSA Rennes.</span></li>
       </ul>
       <h2>Main research interests</h2>
       <ul class="interests">
@@ -267,6 +272,7 @@ def page(name, email):
         <li>Energy-efficient video decoding on embedded and mobile platforms.</li>
         <li>Immersive, 360° and aerial video streaming.</li>
         <li>AI-based video compression and quality enhancement.</li>
+        <li>Large language models and agents for robotics.</li>
       </ul>
     </section>
 
@@ -293,6 +299,7 @@ def page(name, email):
         <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/ibrahim-farhat-470755115/" target="_blank" rel="noopener">ibrahim-farhat</a></dd>
         <dt>Scholar</dt><dd><a href="https://scholar.google.com/citations?user=6gbNelQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">publications and citations</a></dd>
         <dt>GitHub</dt><dd><a href="https://github.com/iFarhat93" target="_blank" rel="noopener">iFarhat93</a></dd>
+        <dt>Hugging Face</dt><dd><a href="https://huggingface.co/ifarhatTII" target="_blank" rel="noopener">ifarhatTII</a></dd>
       </dl>
     </section>
   </div>

@@ -5,10 +5,12 @@
   "author": {
     "name": "Ibrahim Farhat",
     "also_known_as": "Brahim Farhat",
-    "now": "Researcher in video coding, video streaming and AI-based compression",
+    "now": "Senior R&D Researcher at the Technology Innovation Institute (TII), AI and Digital Science Research Center (AIDRC), Abu Dhabi",
     "links": {
       "linkedin": "https://www.linkedin.com/in/ibrahim-farhat-470755115/",
-      "scholar": "https://scholar.google.com/citations?user=6gbNelQAAAAJ"
+      "scholar": "https://scholar.google.com/citations?user=6gbNelQAAAAJ",
+      "huggingface": "https://huggingface.co/ifarhatTII",
+      "github": "https://github.com/iFarhat93"
     }
   },
   "record": {
@@ -27,13 +29,40 @@
     "research_unit": "IETR — Institut d'Électronique et des Technologies du numéRique, UMR CNRS 6164 (VAADER team)",
     "institution": "INSA Rennes — Institut National des Sciences Appliquées de Rennes",
     "industrial_partner": "Industrial PhD with a company that designs professional real-time video encoders and decoders in hardware; the designs were integrated in its VVC ASIC encoder and decoder",
-    "keywords": ["Video compression", "VVC / H.266", "Real-time implementation", "ASIC", "MTS", "LFNST", "ALF", "Optimisation"]
+    "keywords": [
+      "Video compression",
+      "VVC / H.266",
+      "Real-time implementation",
+      "ASIC",
+      "MTS",
+      "LFNST",
+      "ALF",
+      "Optimisation"
+    ]
   },
   "abstract": "The new MPEG/ITU video coding standard named Versatile Video Coding (VVC) was finalized in July 2020. VVC enables 40% better coding efficiency than its predecessor HEVC standard. This coding gain is brought by several coding tools. The MTS and LFNST are among the key coding tools introduced in VVC for the transform part. In addition, in order to enhance the perceptual quality of the coded frames, VVC adds a new tool to its in-loop filter process called the ALF. In this thesis, hardware implementations for all the above tools targeting ASIC platforms are proposed. They feature all optimisations in order to reduce their cost in terms of chip surface, memory and power consumption. All the proposed solutions were integrated in a real-time professional VVC encoder and decoder. The first contribution is an efficient hardware implementation of the MTS transform: a multi-standard architecture that supports the transform block of recent MPEG standards including AVC, HEVC and VVC, which removes unnecessary complexity found in other architectures by using regular multipliers instead of constant multipliers. Then, for the same context, the LFNST is added to the transform module, leveraging butterfly decomposition, coefficient zeroing and the linear relationship between the transform types. The second contribution is an efficient hardware implementation of the ALF tool. For the decoder, a novel scanning order between Luma and Chroma components significantly reduces the memory. For the encoder, where ALF has a filtering phase and a decision phase, the encoder activates ALF only for Luma samples and for CTUs of size 64, which proved efficient and was integrated in the real-time VVC encoder.",
   "people": [
-    {"name": "Daniel Ménard", "org": "INSA Rennes", "role": "Thesis director", "affiliation": "Professor, INSA Rennes / IETR (VAADER)", "note": "Hardware design, fixed-point and approximate computing; co-author of all thesis papers."},
-    {"name": "Olivier Déforges", "org": "INSA Rennes", "role": "Thesis co-director", "affiliation": "Professor, INSA Rennes / IETR", "note": "Image and video coding architectures."},
-    {"name": "Wassim Hamidouche", "org": "IETR", "role": "Supervisor", "affiliation": "Associate Professor, INSA Rennes / IETR (VAADER) at the time", "note": "VVC standardisation and the OpenVVC decoder; co-author of the thesis papers and of later work."}
+    {
+      "name": "Daniel Ménard",
+      "org": "INSA Rennes",
+      "role": "Thesis director",
+      "affiliation": "Professor, INSA Rennes / IETR (VAADER)",
+      "note": "Hardware design, fixed-point and approximate computing; co-author of all thesis papers."
+    },
+    {
+      "name": "Olivier Déforges",
+      "org": "INSA Rennes",
+      "role": "Thesis co-director",
+      "affiliation": "Professor, INSA Rennes / IETR",
+      "note": "Image and video coding architectures."
+    },
+    {
+      "name": "Wassim Hamidouche",
+      "org": "IETR",
+      "role": "Supervisor",
+      "affiliation": "Associate Professor, INSA Rennes / IETR (VAADER) at the time",
+      "note": "VVC standardisation and the OpenVVC decoder; co-author of the thesis papers and of later work."
+    }
   ],
   "jury": [],
   "organisations": {
@@ -54,37 +83,271 @@
     }
   },
   "timeline": [
-    {"when": "2019", "what": "PhD starts at INSA Rennes / IETR with an industrial partner. The partner begins the architecture of its VVC codec IP; VVC is still a draft (VTM 5–8)."},
-    {"when": "May 2020", "what": "ICASSP 2020 paper: first lightweight hardware VVC inverse-transform block for an ASIC decoder (constant vs. regular multipliers, 2 samples/cycle)."},
-    {"when": "July 2020", "what": "VVC / H.266 is finalized by JVET (ITU-T H.266 | ISO/IEC 23090-3)."},
-    {"when": "Nov 2021", "what": "IEEE TCE paper: unified inverse MTS + LFNST design, 4 samples/cycle, 4K60 decoding; first hardware LFNST in the literature."},
-    {"when": "Jan 2022", "what": "IEEE TCE paper: ALF hardware for 4K ASIC VVC decoders with the Luma/Chroma interleaved scanning order (memory −75%)."},
-    {"when": "31 May 2022", "what": "Thesis defended in Rennes (NNT 2022ISAR0009)."},
-    {"when": "Dec 2022", "what": "PCS 2022 paper: ALF filtering + decision hardware for a 4K ASIC VVC encoder."},
-    {"when": "2022–2023", "what": "Research engineer at IETR: OpenVVC on ARM (ISCAS 2023), energy-efficient VVC decoding on mobile (MMSP 2023), live 4K VVC intra toolkit (ACM MMSys 2023), embedded VVC decoder analysis (JRTIP 2023)."},
-    {"when": "2024 →", "what": "Researcher: immersive aerial video streaming, 360° video super-resolution challenges, energy of omnidirectional coding, then foundation models and robotics."}
+    {
+      "when": "2019",
+      "what": "PhD starts at INSA Rennes / IETR with an industrial partner. The partner begins the architecture of its VVC codec IP; VVC is still a draft (VTM 5–8)."
+    },
+    {
+      "when": "May 2020",
+      "what": "ICASSP 2020 paper: first lightweight hardware VVC inverse-transform block for an ASIC decoder (constant vs. regular multipliers, 2 samples/cycle)."
+    },
+    {
+      "when": "July 2020",
+      "what": "VVC / H.266 is finalized by JVET (ITU-T H.266 | ISO/IEC 23090-3)."
+    },
+    {
+      "when": "Nov 2021",
+      "what": "IEEE TCE paper: unified inverse MTS + LFNST design, 4 samples/cycle, 4K60 decoding; first hardware LFNST in the literature."
+    },
+    {
+      "when": "Jan 2022",
+      "what": "IEEE TCE paper: ALF hardware for 4K ASIC VVC decoders with the Luma/Chroma interleaved scanning order (memory −75%)."
+    },
+    {
+      "when": "31 May 2022",
+      "what": "Thesis defended in Rennes (NNT 2022ISAR0009)."
+    },
+    {
+      "when": "Dec 2022",
+      "what": "PCS 2022 paper: ALF filtering + decision hardware for a 4K ASIC VVC encoder."
+    },
+    {
+      "when": "2022–2023",
+      "what": "Research engineer at IETR: OpenVVC on ARM (ISCAS 2023), energy-efficient VVC decoding on mobile (MMSP 2023), live 4K VVC intra toolkit (ACM MMSys 2023), embedded VVC decoder analysis (JRTIP 2023)."
+    },
+    {
+      "when": "2024 →",
+      "what": "Researcher: immersive aerial video streaming, 360° video super-resolution challenges, energy of omnidirectional coding, then foundation models and robotics."
+    }
   ],
   "publications": [
-    {"tag": "C1", "year": 2020, "title": "Lightweight Hardware Implementation of VVC Transform Block for ASIC Decoder", "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges", "venue": "IEEE ICASSP 2020, pp. 1663–1667", "doi": "10.1109/ICASSP40776.2020.9054281", "open": "https://arxiv.org/abs/2002.07461", "part": "Transform (decoder)"},
-    {"tag": "J2", "year": 2021, "title": "Lightweight Hardware Transform Design for the Versatile Video Coding 4K ASIC Decoders", "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges", "venue": "IEEE Transactions on Consumer Electronics 67(4), pp. 329–340", "doi": "10.1109/TCE.2021.3126549", "open": "https://hal.science/hal-03443297", "part": "Transform (decoder)"},
-    {"tag": "J1", "year": 2022, "title": "Adaptive Loop Filter Hardware Design for 4K ASIC VVC Decoders", "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges", "venue": "IEEE Transactions on Consumer Electronics 68(2), pp. 107–118", "doi": "10.1109/TCE.2022.3146272", "open": "https://hal.science/hal-03544100", "part": "ALF (decoder)"},
-    {"tag": "C2", "year": 2022, "title": "Efficient HW Design of Adaptive Loop Filter for 4K ASIC VVC Encoder", "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges", "venue": "Picture Coding Symposium (PCS) 2022", "doi": "10.1109/PCS56426.2022.10018078", "open": "https://hal.science/hal-04010994", "part": "ALF (encoder)"},
-    {"tag": "after", "year": 2023, "title": "Live and Low Energy VVC Video Decoding powered by the OpenVVC Decoder on ARM Platform", "authors": "I. Farhat, P.-L. Cabarat, W. Hamidouche, P. Angot, P. Gonon, D. Ménard", "venue": "IEEE ISCAS 2023", "doi": "10.1109/ISCAS46773.2023.10181412", "open": "https://hal.science/hal-04223048", "part": "After the PhD"},
-    {"tag": "after", "year": 2023, "title": "Open-Source Toolkit for Live End-to-End 4K VVC Intra Coding", "authors": "M. Viitanen, J. Sainio, A. Mercat, G. Gautier, J. Vanne, I. Farhat, P.-L. Cabarat, W. Hamidouche, D. Ménard", "venue": "ACM MMSys 2023", "doi": "10.1145/3587819.3593938", "open": "https://hal.science/hal-04163694", "part": "After the PhD"},
-    {"tag": "after", "year": 2023, "title": "Energy Efficient VVC Decoding on Mobile Platform", "authors": "I. Farhat, P.-L. Cabarat, D. Ménard, W. Hamidouche, O. Déforges", "venue": "IEEE MMSP 2023", "doi": "10.1109/MMSP59012.2023.10337668", "open": "https://hal.science/hal-04357305", "part": "After the PhD"},
-    {"tag": "after", "year": 2023, "title": "Performance analysis of optimized versatile video coding software decoders on embedded platforms", "authors": "A. Saha, W. Hamidouche, M. Chavarrías, F. Pescador, I. Farhat", "venue": "Journal of Real-Time Image Processing 20, 120", "doi": "10.1007/s11554-023-01376-7", "open": "https://hal.science/hal-04329306", "part": "After the PhD"},
-    {"tag": "after", "year": 2024, "title": "Real-time immersive aerial video streaming: a comprehensive survey, benchmarking, and open challenges", "authors": "M. K. Sharma, I. Farhat, C.-F. Liu, N. Sehad, W. Hamidouche, M. Debbah", "venue": "IEEE Open Journal of the Communications Society", "doi": "", "open": "https://arxiv.org/abs/2311.00082", "part": "After the PhD"},
-    {"tag": "after", "year": 2024, "title": "ODVISTA: An omnidirectional video dataset for super-resolution and quality enhancement tasks", "authors": "A. Telili, I. Farhat, W. Hamidouche, H. Amirpour", "venue": "IEEE ICIP 2024", "doi": "", "open": "", "part": "After the PhD"}
+    {
+      "tag": "C1",
+      "year": 2020,
+      "title": "Lightweight Hardware Implementation of VVC Transform Block for ASIC Decoder",
+      "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges",
+      "venue": "IEEE ICASSP 2020, pp. 1663–1667",
+      "doi": "10.1109/ICASSP40776.2020.9054281",
+      "open": "https://arxiv.org/abs/2002.07461",
+      "part": "Transform (decoder)"
+    },
+    {
+      "tag": "J2",
+      "year": 2021,
+      "title": "Lightweight Hardware Transform Design for the Versatile Video Coding 4K ASIC Decoders",
+      "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges",
+      "venue": "IEEE Transactions on Consumer Electronics 67(4), pp. 329–340",
+      "doi": "10.1109/TCE.2021.3126549",
+      "open": "https://hal.science/hal-03443297",
+      "part": "Transform (decoder)"
+    },
+    {
+      "tag": "J1",
+      "year": 2022,
+      "title": "Adaptive Loop Filter Hardware Design for 4K ASIC VVC Decoders",
+      "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges",
+      "venue": "IEEE Transactions on Consumer Electronics 68(2), pp. 107–118",
+      "doi": "10.1109/TCE.2022.3146272",
+      "open": "https://hal.science/hal-03544100",
+      "part": "ALF (decoder)"
+    },
+    {
+      "tag": "C2",
+      "year": 2022,
+      "title": "Efficient HW Design of Adaptive Loop Filter for 4K ASIC VVC Encoder",
+      "authors": "I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges",
+      "venue": "Picture Coding Symposium (PCS) 2022",
+      "doi": "10.1109/PCS56426.2022.10018078",
+      "open": "https://hal.science/hal-04010994",
+      "part": "ALF (encoder)"
+    },
+    {
+      "tag": "after",
+      "year": 2023,
+      "title": "Live and Low Energy VVC Video Decoding powered by the OpenVVC Decoder on ARM Platform",
+      "authors": "I. Farhat, P.-L. Cabarat, W. Hamidouche, P. Angot, P. Gonon, D. Ménard",
+      "venue": "IEEE ISCAS 2023",
+      "doi": "10.1109/ISCAS46773.2023.10181412",
+      "open": "https://hal.science/hal-04223048",
+      "part": "After the PhD"
+    },
+    {
+      "tag": "after",
+      "year": 2023,
+      "title": "Open-Source Toolkit for Live End-to-End 4K VVC Intra Coding",
+      "authors": "M. Viitanen, J. Sainio, A. Mercat, G. Gautier, J. Vanne, I. Farhat, P.-L. Cabarat, W. Hamidouche, D. Ménard",
+      "venue": "ACM MMSys 2023",
+      "doi": "10.1145/3587819.3593938",
+      "open": "https://hal.science/hal-04163694",
+      "part": "After the PhD"
+    },
+    {
+      "tag": "after",
+      "year": 2023,
+      "title": "Energy Efficient VVC Decoding on Mobile Platform",
+      "authors": "I. Farhat, P.-L. Cabarat, D. Ménard, W. Hamidouche, O. Déforges",
+      "venue": "IEEE MMSP 2023",
+      "doi": "10.1109/MMSP59012.2023.10337668",
+      "open": "https://hal.science/hal-04357305",
+      "part": "After the PhD"
+    },
+    {
+      "tag": "after",
+      "year": 2023,
+      "title": "Performance analysis of optimized versatile video coding software decoders on embedded platforms",
+      "authors": "A. Saha, W. Hamidouche, M. Chavarrías, F. Pescador, I. Farhat",
+      "venue": "Journal of Real-Time Image Processing 20, 120",
+      "doi": "10.1007/s11554-023-01376-7",
+      "open": "https://hal.science/hal-04329306",
+      "part": "After the PhD"
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2026,
+      "title": "Q-Codec: Reinforcement Learning based Adaptive Encoding for Real-Time Streaming of Immersive Aerial Videos",
+      "authors": "M. K. Sharma, I. Farhat, W. Hamidouche",
+      "venue": "IEEE Wireless Communications and Networking Conference (WCNC) 2026",
+      "doi": "10.1109/WCNC65185.2026.11555145",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2026,
+      "title": "Beyond Microservices: Testing Web-Scale RCA Methods on GPU-Driven LLM Workloads",
+      "authors": "D. Scheinert, A. Acker, T. Wittkopp, S. Becker, H. Yous, K. Reddy, I. Farhat, H. Hacid, O. Kao",
+      "venue": "Companion of the 17th ACM/SPEC International Conference on Performance Engineering (ICPE 2026)",
+      "doi": "10.1145/3777911.3800637",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2026,
+      "title": "ALRM: Agentic LLM for Robotic Manipulation",
+      "authors": "V. Gaboardi dos Santos, I. Khadraoui, I. Farhat, H. Yous, S. Teffahi, H. Hacid",
+      "venue": "arXiv preprint 2601.19510",
+      "doi": "",
+      "open": "https://arxiv.org/abs/2601.19510"
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2025,
+      "title": "360-degree video super resolution and quality enhancement challenge: Methods and results",
+      "authors": "A. Telili, W. Hamidouche, I. Farhat, H. Amirpour, C. Timmerer, I. Khadraoui, J. Lu, T. Le, J. Baek, J. Lee, Y. Wei, X. Sun, Y. Gao, J. Huang, Y. Zhong",
+      "venue": "Signal Processing: Image Communication 138, 117376",
+      "doi": "10.1016/j.image.2025.117376",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2025,
+      "title": "From Intentions to Actions: Workflow Generation with LLMs for Robots",
+      "authors": "J. Flerlage, A. Acker, D. Scheinert, S. Becker, H. Yous, K. Reddy, I. Farhat, H. Hacid, O. Kao",
+      "venue": "3rd International Conference on Foundation and Large Language Models (FLLM 2025)",
+      "doi": "10.1109/FLLM67465.2025.11391122",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2025,
+      "title": "Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance",
+      "authors": "J. Zuo, M. Velikanov, I. Chahed, Y. Belkada, D. E. Rhayem, G. Kunsch, H. Hacid, H. Yous, B. Farhat, I. Khadraoui, et al. (27 authors)",
+      "venue": "Technical report, arXiv preprint 2507.22448",
+      "doi": "",
+      "open": "https://arxiv.org/abs/2507.22448"
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2025,
+      "title": "Learning based methods for real-time omnidirectional video streaming",
+      "authors": "M. K. Sharma, B. Farhat, W. Hamidouche",
+      "venue": "US patent application 19/006,667",
+      "doi": "",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2024,
+      "title": "Real-Time Immersive Aerial Video Streaming: A Comprehensive Survey, Benchmarking, and Open Challenges",
+      "authors": "M. K. Sharma, I. Farhat, C.-F. Liu, N. Sehad, W. Hamidouche, M. Debbah",
+      "venue": "IEEE Open Journal of the Communications Society 5, pp. 5680–5705",
+      "doi": "10.1109/OJCOMS.2024.3455763",
+      "open": "https://arxiv.org/abs/2311.00082"
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2024,
+      "title": "ODVISTA: An Omnidirectional Video Dataset for Super-Resolution and Quality Enhancement Tasks",
+      "authors": "A. Telili, I. Farhat, W. Hamidouche, H. Amirpour",
+      "venue": "IEEE International Conference on Image Processing (ICIP) 2024, pp. 131–136",
+      "doi": "10.1109/ICIP51287.2024.10647612",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2024,
+      "title": "Energy Cost of Coding Omnidirectional Videos using ARM and x86 Platforms",
+      "authors": "I. Farhat, I. Khadraoui, W. Hamidouche, M. K. Sharma",
+      "venue": "2nd International ACM Green Multimedia Systems Workshop (GMSys 2024)",
+      "doi": "10.1145/3652104.3652526",
+      "open": ""
+    },
+    {
+      "tag": "after",
+      "part": "After the PhD",
+      "year": 2024,
+      "title": "Error Concealment Capacity Analysis of Standard Video Encoders for Real-Time Immersive Video Streaming from UAVs",
+      "authors": "M. K. Sharma, I. Farhat, W. Hamidouche",
+      "venue": "IEEE Wireless Communications and Networking Conference (WCNC) 2024",
+      "doi": "10.1109/WCNC57260.2024.10570883",
+      "open": ""
+    }
   ],
   "sources": [
-    {"label": "Thesis manuscript (HAL tel-04477217, 190 pages)", "url": "https://theses.hal.science/tel-04477217"},
-    {"label": "theses.fr record 2022ISAR0009", "url": "https://www.theses.fr/2022ISAR0009"},
-    {"label": "HAL metadata (api.archives-ouvertes.fr)", "url": "https://api.archives-ouvertes.fr/search/?q=halId_s:tel-04477217"},
-    {"label": "INSA Rennes", "url": "https://www.insa-rennes.fr/"},
-    {"label": "IETR — VAADER team / OpenVVC", "url": "https://www.ietr.fr/"},
-    {"label": "Google Scholar profile", "url": "https://scholar.google.com/citations?user=6gbNelQAAAAJ"},
-    {"label": "Overview of the VVC standard (Bross et al., IEEE TCSVT 2021)", "url": "https://doi.org/10.1109/TCSVT.2021.3101953"},
-    {"label": "Transform coding in the VVC standard (Zhao et al., IEEE TCSVT 2021)", "url": "https://doi.org/10.1109/TCSVT.2021.3087706"},
-    {"label": "VVC in-loop filters (Karczewicz et al., IEEE TCSVT 2021)", "url": "https://doi.org/10.1109/TCSVT.2021.3072297"}
+    {
+      "label": "Thesis manuscript (HAL tel-04477217, 190 pages)",
+      "url": "https://theses.hal.science/tel-04477217"
+    },
+    {
+      "label": "theses.fr record 2022ISAR0009",
+      "url": "https://www.theses.fr/2022ISAR0009"
+    },
+    {
+      "label": "HAL metadata (api.archives-ouvertes.fr)",
+      "url": "https://api.archives-ouvertes.fr/search/?q=halId_s:tel-04477217"
+    },
+    {
+      "label": "INSA Rennes",
+      "url": "https://www.insa-rennes.fr/"
+    },
+    {
+      "label": "IETR — VAADER team / OpenVVC",
+      "url": "https://www.ietr.fr/"
+    },
+    {
+      "label": "Google Scholar profile",
+      "url": "https://scholar.google.com/citations?user=6gbNelQAAAAJ"
+    },
+    {
+      "label": "Overview of the VVC standard (Bross et al., IEEE TCSVT 2021)",
+      "url": "https://doi.org/10.1109/TCSVT.2021.3101953"
+    },
+    {
+      "label": "Transform coding in the VVC standard (Zhao et al., IEEE TCSVT 2021)",
+      "url": "https://doi.org/10.1109/TCSVT.2021.3087706"
+    },
+    {
+      "label": "VVC in-loop filters (Karczewicz et al., IEEE TCSVT 2021)",
+      "url": "https://doi.org/10.1109/TCSVT.2021.3072297"
+    }
   ]
 }
