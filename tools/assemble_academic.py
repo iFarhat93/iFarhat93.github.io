@@ -121,7 +121,7 @@ blockquote.pub .venue{font-style:italic}
 .contact dt{color:var(--muted)} .contact dd{margin:0;display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
 .copy{border:1px solid var(--line-2);background:var(--surface);border-radius:4px;padding:.15em .6em;font-size:.8em;cursor:pointer}
 .copy:hover{border-color:var(--link);color:var(--link)}
-.page__footer{max-width:925px;margin:3em auto 0;padding:1.5em 1em;border-top:1px solid var(--line);color:var(--muted);font-size:.8em}
+.page__end{height:3em}
 @media (max-width:64em){
   #main{grid-template-columns:1fr}
   .sidebar{position:static;display:grid;grid-template-columns:110px minmax(0,1fr);gap:1em;align-items:start}
@@ -322,7 +322,7 @@ def page(name, email):
   </div>
 </div>
 
-<footer class="page__footer">© 2026 Ibrahim Farhat.</footer>
+<div class="page__end"></div>
 {audio}
 {three}
 {script}
