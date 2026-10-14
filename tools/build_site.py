@@ -1,4 +1,5 @@
-"""Assemble the GitHub Pages site in docs/.
+"""Assemble the development previews in work/preview/ (the story, the narrated walkthrough and the Silicon Ladder).
+The published site in docs/ is written by assemble_academic.py.
 
 usage: python -I tools/build_site.py
 
@@ -8,8 +9,8 @@ Reads  tools/pages/story.html       the story in 10 scenes (page fragment: <titl
        content/phd.json, content/steps.json, content/glossary.json, content/story.json
        work/audio/*.cues.json       sentence timings written by tools/make_audio.py
        work/figures/*.png           figure crops written by tools/extract_figures.py
-Writes docs/index.html, docs/explainer.html, docs/platforms.html   (complete HTML documents)
-       docs/assets/figures/*.png    only the figures the pages use
+Writes work/preview/index.html, explainer.html, platforms.html   (complete HTML documents)
+       work/preview/assets/figures/*.png    only the figures the pages use
        work/artifact/*.html         the same pages as fragments, for publishing as claude.ai artifacts
 A page fragment keeps its <title>, <link> and <style> before the "<!-- body -->" marker; wrap() moves
 that part into <head> and the rest into <body>.
@@ -18,9 +19,9 @@ import json, re, shutil, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES, DOCS, ART = ROOT / "tools" / "pages", ROOT / "docs", ROOT / "work" / "artifact"
+PAGES, DOCS, ART = ROOT / "tools" / "pages", ROOT / "work" / "preview", ROOT / "work" / "artifact"
 FIG_SRC, FIG_DST = ROOT / "work" / "figures", DOCS / "assets" / "figures"
-AUDIO, CUES = DOCS / "assets" / "audio", ROOT / "work" / "audio"
+AUDIO, CUES = ROOT / "docs" / "assets" / "audio", ROOT / "work" / "audio"  # narration MP3s live in docs/ (make_audio.py)
 HEAD = ('<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<style>html{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>')
 
@@ -102,7 +103,7 @@ def main():
     emit("platforms", plat)
 
     copied = copy_figures(figs)
-    print(f"docs/: index, explainer ({len(steps['steps'])} steps, audio {with_audio}/{len(steps['steps'])}, "
+    print(f"work/preview/: index, explainer ({len(steps['steps'])} steps, audio {with_audio}/{len(steps['steps'])}, "
           f"{total/60:.1f} min), platforms · figures copied: {copied} · scene audio: {len(durations)}")
 
 

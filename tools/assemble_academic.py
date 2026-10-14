@@ -1,7 +1,7 @@
 """Assemble the academic site (academicpages look) as one page with four windows: About, Publications, PhD, Contact.
 
 The PhD window reuses the story page's hero, scenes, record and script; the rest is built here from content/phd.json.
-Writes work/artifact/academic.html (fragment for claude.ai) and work/academic-local.html (full document for local checks).
+Writes docs/index.html (the published site), work/artifact/academic.html (fragment for claude.ai) and work/academic-local.html (same document, for local checks).
 """
 import json, re, html as H
 from pathlib import Path
@@ -279,6 +279,7 @@ def page(name, email):
       <p>Since then I have moved to AI, worked on 3D reconstruction with NeRF and 3D Gaussian splatting, edge AI and model compression for the Falcon LLM models, and now models and systems for robotic VLAs and agentic coding for robots.</p>
       <h2>News</h2>
       <ul class="news">
+        <li><span class="date">2026</span><span>Our patent "Learning based methods for real-time omnidirectional video streaming" (US 19/006,667, with M. K. Sharma and W. Hamidouche) has been accepted.</span></li>
         <li><span class="date">2026</span><span>Q-Codec, reinforcement-learning-based adaptive encoding for immersive aerial video, accepted at IEEE WCNC 2026; ALRM, an agentic LLM for robotic manipulation, on arXiv.</span></li>
         <li><span class="date">2025</span><span>The Falcon-H1 technical report is out; the results of our 360° video super-resolution challenge are published in Signal Processing: Image Communication.</span></li>
         <li><span class="date">2024</span><span>ODVISTA, our omnidirectional video dataset for super-resolution and quality enhancement, accepted at IEEE ICIP 2024.</span></li>
@@ -360,7 +361,25 @@ out = page('Ibrahim Farhat', 'brahim.farhat.co@gmail.com')
 (ROOT / 'work' / 'artifact').mkdir(parents=True, exist_ok=True)
 (ROOT / 'work' / 'artifact' / 'academic.html').write_text(out, encoding='utf-8')
 head, body = out.split('<!-- body -->', 1)
-local = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
-         '<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + head + '</head><body>' + body + '</body></html>')
+NL = chr(10)
+local = NL.join(['<!doctype html>', '<html lang="en">', '<head>', '<meta charset="utf-8">',
+                 '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">',
+                 '<meta name="description" content="Ibrahim Farhat, Senior R&amp;D Researcher at TII (AIDRC), Abu Dhabi: publications, the PhD on hardware designs for VVC explained in ten scenes, contact.">',
+                 '<meta name="author" content="Ibrahim Farhat">', '<meta name="referrer" content="strict-origin-when-cross-origin">',
+                 '<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>',
+                 head + '</head>', '<body>' + body + '</body>', '</html>', ''])
 (ROOT / 'work' / 'academic-local.html').write_text(local, encoding='utf-8')
-print('academic page', len(out) // 1024, 'KB; publications', len(phd['publications']), 'years', years)
+DOCS = ROOT / 'docs'; (DOCS / '.nojekyll').touch()
+(DOCS / 'index.html').write_text(local, encoding='utf-8')
+import shutil
+missing = []
+for fig in sorted(set(re.findall(r'assets/figures/(fig_[\w]+\.png)', out))):
+    dst = DOCS / 'assets' / 'figures' / fig
+    if not dst.exists():
+        src = ROOT / 'work' / 'figures' / fig
+        if src.exists(): dst.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(src, dst)
+        else: missing.append(fig)
+assert not missing, f'figures missing from work/figures: {missing}'
+for sid in durations:
+    assert (DOCS / 'assets' / 'audio' / f'scene-{sid}.mp3').exists(), f'scene-{sid}.mp3 missing'
+print('docs/index.html written;', len(out) // 1024, 'KB; publications', len(phd['publications']), 'years', years)

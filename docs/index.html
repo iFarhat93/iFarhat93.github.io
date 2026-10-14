@@ -3,144 +3,170 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>html{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>VVC in Silicon</title>
+<meta name="description" content="Ibrahim Farhat, Senior R&amp;D Researcher at TII (AIDRC), Abu Dhabi: publications, the PhD on hardware designs for VVC explained in ten scenes, contact.">
+<meta name="author" content="Ibrahim Farhat">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Ibrahim Farhat</title>
 <style>
-/* Layout: a beige hero with a 3D die and a pixel-mosaic strip, then ten scenes (visual left, two sentences right, a "go deeper" fold), a square-dot rail that marks the scene, a record section and a footer.
-   Theme: warm beige ground, black ink, a five-step yellow-to-red block gradient as the only colour, square corners, uppercase small labels, large tight headlines; the 3D scenes render at low resolution and upscale without smoothing so they read as pixel art. */
+/* Layout: the academicpages shell (masthead nav, left author sidebar, 925px content column) with four windows switched by tabs; the PhD window carries the 3D story. */
 :root{
-  --bg:#FFFAEB; --surface:#FFFFFF; --surface-2:#FFF0C3; --fg:#1E1E1E; --muted:#6b6557; --line:#E9E2CB;
-  --accent:#FA500F; --accent-ink:#FFFAEB; --ink:#1E1E1E; --ink-fg:#FFFAEB; --link:#1E1E1E;
-  --y:#FFD800; --ol:#FFAF00; --o:#FF8205; --od:#FA500F; --r:#E10500;
-  --grid:rgba(30,30,30,.06); --bar:#CFC5A7; --shadow:rgba(250,80,15,.12);
-  --c3-die:#1E1E1E; --c3-pin:#C4B995; --c3-block:#BDB28C; --c3-accent:#FF8205; --c3-glow:#FFD800; --c3-blue:#1E1E1E; --c3-green:#E10500;
-  --c3-dim:#EBE3C9; --c3-y:#BDB28C; --c3-cr:#FA500F; --c3-cb:#FFD800; --c3-rail:#E9E2CB;
-  --display:Arial,"Helvetica Neue",Helvetica,sans-serif;
-  --body:Arial,"Helvetica Neue",Helvetica,sans-serif;
-  --mono:ui-monospace,Consolas,"Courier New",monospace;
+  --bg:#ffffff; --fg:#494e52; --head:#000000; --muted:#9ba1a6; --line:#f2f3f3; --line-2:#e6e8ea; --link:#52adc8; --accent:#52adc8; --accent-ink:#ffffff;
+  --surface:#ffffff; --surface-2:#f7f8f8; --shadow:rgba(0,0,0,.08);
+  --c3-die:#3d4348; --c3-pin:#aab0b5; --c3-block:#b3b9be; --c3-accent:#52adc8; --c3-glow:#9fdcee; --c3-blue:#586e75; --c3-green:#cb4b16;
+  --c3-dim:#e3e6e8; --c3-y:#b3b9be; --c3-cr:#f89406; --c3-cb:#52adc8; --c3-rail:#e9ebed; --bar:#bdc1c4;
+  --sans:-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Lucida Grande",Arial,sans-serif; --mono:Monaco,Consolas,"Lucida Console",monospace;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --bg:#1E1E1E; --surface:#262320; --surface-2:#332e27; --fg:#FFFAEB; --muted:#b5ad99; --line:#4a4337;
-    --accent:#FF8205; --accent-ink:#1E1E1E; --ink:#FFFAEB; --ink-fg:#1E1E1E; --link:#FFFAEB; --grid:rgba(255,250,235,.05); --bar:#6b6557; --shadow:rgba(0,0,0,.35);
-    --c3-die:#000000; --c3-pin:#4a4337; --c3-block:#5a5244; --c3-dim:#2e2a24; --c3-y:#5a5244; --c3-rail:#2a2622; --c3-blue:#FFF0C3; --c3-green:#FFD800; color-scheme:dark }
+  :root:not([data-theme="light"]){ --bg:#1b1f22; --fg:#dfe3e6; --head:#ffffff; --muted:#9ba1a6; --line:#2c3236; --line-2:#363c41; --link:#6cc1d9; --accent:#6cc1d9; --accent-ink:#0e1a1f;
+    --surface:#22272b; --surface-2:#2a3034; --shadow:rgba(0,0,0,.4); --c3-block:#55606a; --c3-dim:#2e353a; --c3-y:#55606a; --c3-rail:#2a3034; --bar:#55606a; color-scheme:dark }
 }
-:root[data-theme="dark"]{ --bg:#1E1E1E; --surface:#262320; --surface-2:#332e27; --fg:#FFFAEB; --muted:#b5ad99; --line:#4a4337;
-    --accent:#FF8205; --accent-ink:#1E1E1E; --ink:#FFFAEB; --ink-fg:#1E1E1E; --link:#FFFAEB; --grid:rgba(255,250,235,.05); --bar:#6b6557; --shadow:rgba(0,0,0,.35);
-    --c3-die:#000000; --c3-pin:#4a4337; --c3-block:#5a5244; --c3-dim:#2e2a24; --c3-y:#5a5244; --c3-rail:#2a2622; --c3-blue:#FFF0C3; --c3-green:#FFD800; color-scheme:dark }
+:root[data-theme="dark"]{ --bg:#1b1f22; --fg:#dfe3e6; --head:#ffffff; --muted:#9ba1a6; --line:#2c3236; --line-2:#363c41; --link:#6cc1d9; --accent:#6cc1d9; --accent-ink:#0e1a1f;
+    --surface:#22272b; --surface-2:#2a3034; --shadow:rgba(0,0,0,.4); --c3-block:#55606a; --c3-dim:#2e353a; --c3-y:#55606a; --c3-rail:#2a3034; --bar:#55606a; color-scheme:dark }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;padding-block:0 40px}
-a{color:var(--link);text-decoration-thickness:1px;text-underline-offset:3px}
-a:hover{color:var(--accent)}
-h1,h2,h3{font-family:var(--display);line-height:1.05;text-wrap:balance;margin:0;font-weight:700;letter-spacing:-.025em}
-h1{font-size:clamp(2.4rem,5.6vw,4.2rem);line-height:.98;letter-spacing:-.035em}
-h2{font-size:clamp(1.6rem,3vw,2.3rem)}
-h3{font-size:1.1rem;letter-spacing:-.01em}
-p{margin:0}
-.wrap{max-width:1180px;margin-inline:auto;padding-inline:clamp(16px,3vw,32px);min-width:0}
-.eyebrow{font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+html{font-size:18px}
+@media (max-width:64em){ html{font-size:16px} }
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
+a{color:var(--link)}
+h1,h2,h3{font-family:var(--sans);font-weight:700;color:var(--head);line-height:1.2;margin:2em 0 .5em;text-wrap:balance}
+h2{font-size:1.3em} h3{font-size:1.05em}
+p{margin:0 0 1em}
 button{font:inherit;color:inherit}
-.btn{border:1px solid var(--ink);background:transparent;color:var(--fg);padding:11px 16px;border-radius:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;line-height:1.2;text-decoration:none;font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
-.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.primary{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
-.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.small{padding:7px 11px;font-size:.7rem}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px}
 [hidden]{display:none!important}
-.rainbow{height:10px;background:linear-gradient(90deg,var(--y) 0 20%,var(--ol) 20% 40%,var(--o) 40% 60%,var(--od) 60% 80%,var(--r) 80%)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-size:.78em;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 
-/* top bar */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in oklab,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
-.brand{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--fg);white-space:nowrap;font-size:1.05rem}
-.brand span{color:var(--muted);font-weight:400;font-size:.95rem;letter-spacing:0}
-.top nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
-.top nav a{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--fg);padding:7px 10px;white-space:nowrap;border-bottom:2px solid transparent}
-.top nav a:hover{border-bottom-color:var(--accent);color:var(--fg)}
+/* masthead */
+.masthead{border-bottom:1px solid var(--line)}
+.masthead__inner{max-width:925px;margin:0 auto;padding:1em;display:flex;align-items:center;justify-content:space-between;gap:1em;flex-wrap:wrap}
+.site-title{font-weight:700;color:var(--head);text-decoration:none;font-size:1.05em}
+.nav{display:flex;gap:1.3em;flex-wrap:wrap}
+.nav a{color:var(--head);text-decoration:none;font-size:.92em;padding:.25em 0;border-bottom:2px solid transparent}
+.nav a:hover{color:var(--link)}
+.nav a.active{border-bottom-color:var(--link)}
 
-/* hero */
-.hero{position:relative;background:var(--bg);color:var(--fg);border-bottom:1px solid var(--line);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:32px;align-items:center;padding-block:52px 56px}
-.hero .eyebrow{color:var(--muted)}
-.hero .rainbow{width:200px;margin-top:18px}
-.hero p.lede{font-size:1.12rem;max-width:44ch;margin-top:18px}
-.hero p.who{color:var(--muted);font-size:.95rem;margin-top:12px}
-.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+/* main grid */
+#main{max-width:925px;margin:2em auto;padding:0 1em;display:grid;grid-template-columns:200px minmax(0,1fr);gap:2.2em;align-items:start}
+.sidebar{position:sticky;top:1em;font-size:.86em}
+.author__avatar img,.author__avatar .initials{width:110px;height:110px;border-radius:50%;display:block;object-fit:cover}
+.author__avatar .initials{background:var(--surface-2);border:1px solid var(--line-2);color:var(--head);font-weight:700;font-size:2.2em;display:grid;place-items:center}
+.author__name{font-size:1.25em;margin:.6em 0 0;font-weight:700}
+.author__bio{color:var(--muted);margin:.2em 0 0}
+.author__urls{list-style:none;margin:.9em 0 0;padding:0}
+.author__urls li{margin:.35em 0;display:flex;align-items:center;gap:.5em}
+.author__urls a{color:var(--fg);text-decoration:none}
+.author__urls a:hover{color:var(--link)}
+.author__urls svg{width:16px;height:16px;fill:currentColor;flex:0 0 auto}
+.author__urls .lbl{font-size:.8em;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:.4em}
+.content{min-width:0}
+.page__title{font-size:2em;line-height:1;margin:0 0 .6em}
+.panel{min-width:0}
+.news{list-style:none;padding:0;margin:0}
+.news li{display:grid;grid-template-columns:5.2em minmax(0,1fr);gap:.8em;margin:.45em 0}
+.news .date{color:var(--muted);font-size:.9em;padding-top:.1em}
+.interests{padding-left:1.2em;margin:0}
+.interests li{margin:.25em 0}
+blockquote.pub{margin:1em 0;padding:0 0 0 1em;border-left:.25em solid var(--line-2);font-style:normal}
+blockquote.pub .authors{color:var(--fg)}
+blockquote.pub .venue{font-style:italic}
+.abstract{font-size:.92em;color:var(--fg)}
+.contact dl{display:grid;grid-template-columns:7em minmax(0,1fr);gap:.5em 1em;margin:0}
+.contact dt{color:var(--muted)} .contact dd{margin:0;display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+.copy{border:1px solid var(--line-2);background:var(--surface);border-radius:4px;padding:.15em .6em;font-size:.8em;cursor:pointer}
+.copy:hover{border-color:var(--link);color:var(--link)}
+.page__footer{max-width:925px;margin:3em auto 0;padding:1.5em 1em;border-top:1px solid var(--line);color:var(--muted);font-size:.8em}
+@media (max-width:64em){
+  #main{grid-template-columns:1fr}
+  .sidebar{position:static;display:grid;grid-template-columns:110px minmax(0,1fr);gap:1em;align-items:start}
+  .author__name{margin-top:0}
+}
+
+/* ---- PhD window: the story (hero, scenes, record) ---- */
+.btn{border:1px solid var(--line-2);background:var(--surface);color:var(--fg);padding:.5em .9em;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;line-height:1.2;text-decoration:none;font-size:.9em;font-weight:600}
+.btn:hover{border-color:var(--link);color:var(--link)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(.95);color:var(--accent-ink)}
+.btn.small{padding:.35em .7em;font-size:.82em}
+.hero{padding:0 0 1.5em;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;gap:1.2em}
+.hero h1{font-size:1.6em;margin:.3em 0 0;line-height:1.15}
+.hero p.lede{margin:.8em 0 0;font-size:1em}
+.hero p.who{color:var(--muted);font-size:.9em;margin:.5em 0 0}
+.hero .cta{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
 .hero3d{position:relative}
-.hero3d .c3d{height:clamp(300px,42vw,460px);background:var(--surface-2)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.84rem;color:var(--muted);margin-top:8px}
-.legend i{display:inline-block;width:11px;height:11px;vertical-align:-1px;margin-right:6px}
-.hint{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;right:10px;top:8px;z-index:2}
-.mosaic{position:absolute;left:0;right:0;bottom:0;height:24px;display:block}
-.mosaic svg{display:block;width:100%;height:100%}
-
-/* 3D host + overlay labels: low-resolution render, upscaled without smoothing */
-.c3d{position:relative;width:100%;height:380px;min-width:0;touch-action:pan-y;cursor:grab;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);box-shadow:0 12px 32px var(--shadow)}
-.c3d::before{content:"";position:absolute;left:8px;top:8px;width:30px;height:6px;background:linear-gradient(90deg,var(--y) 0 20%,var(--ol) 20% 40%,var(--o) 40% 60%,var(--od) 60% 80%,var(--r) 80%);z-index:2}
+.hero3d .c3d{height:clamp(260px,40vw,380px)}
+.legend{display:flex;flex-wrap:wrap;gap:1em;font-size:.82em;color:var(--muted);margin-top:.5em}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:.4em}
+.hint{font-size:.7em;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);position:absolute;right:.6em;top:.5em;z-index:2}
+.c3d{position:relative;width:100%;height:360px;min-width:0;touch-action:pan-y;cursor:grab;overflow:hidden;border:1px solid var(--line-2);border-radius:4px;background:var(--surface-2)}
 .c3d:active{cursor:grabbing}
 .c3d canvas{display:block;position:relative;image-rendering:-moz-crisp-edges;image-rendering:crisp-edges;image-rendering:pixelated}
-.c3d.no3d::after{content:"3D view needs WebGL; the figures in “Go deeper” show the same thing.";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:.9rem;padding:20px;text-align:center}
-.l3d{position:absolute;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 7px;background:color-mix(in oklab,var(--surface) 90%,transparent);color:var(--fg);border:1px solid var(--line);white-space:nowrap;will-change:transform}
-.l3d.acc{border-color:var(--accent);color:var(--accent)}
-.stage-label{position:absolute;left:12px;bottom:10px;font-size:.82rem;font-weight:700;background:color-mix(in oklab,var(--surface) 92%,transparent);border:1px solid var(--line);padding:6px 10px;max-width:calc(100% - 24px)}
-.stage-tools{position:absolute;right:10px;top:10px;display:flex;gap:4px;z-index:2}
-.stage-tools button{border:1px solid var(--line);background:color-mix(in oklab,var(--surface) 92%,transparent);padding:5px 8px;font-size:.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
-.stage-tools button[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
-
-/* scenes */
-.scene{padding-block:52px;border-bottom:1px solid var(--line)}
-.scene .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:center}
-.scene .visual{min-width:0;display:grid;gap:12px}
-.scene .visual figure{position:relative;margin:0;background:var(--surface);border:1px solid var(--line);padding:14px 12px 10px;min-width:0}
-.scene .visual figure::before{content:"";position:absolute;left:8px;top:6px;width:30px;height:6px;background:linear-gradient(90deg,var(--y) 0 20%,var(--ol) 20% 40%,var(--o) 40% 60%,var(--od) 60% 80%,var(--r) 80%)}
+.c3d.no3d::after{content:"3D view needs WebGL; the figures in “Go deeper” show the same thing.";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:.9em;padding:1em;text-align:center}
+.l3d{position:absolute;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;font-size:.68em;padding:.2em .5em;border-radius:3px;background:color-mix(in oklab,var(--surface) 90%,transparent);color:var(--head);border:1px solid var(--line-2);white-space:nowrap;will-change:transform}
+.l3d.acc{border-color:var(--accent);color:var(--accent);font-weight:600}
+.stage-label{position:absolute;left:.7em;bottom:.6em;font-size:.8em;background:color-mix(in oklab,var(--surface) 92%,transparent);border:1px solid var(--line-2);border-radius:3px;padding:.3em .6em;max-width:calc(100% - 1.4em)}
+.stage-tools{position:absolute;right:.6em;top:.5em;display:flex;gap:.3em;z-index:2}
+.stage-tools button{border:1px solid var(--line-2);background:color-mix(in oklab,var(--surface) 92%,transparent);border-radius:3px;padding:.25em .5em;font-size:.72em;cursor:pointer}
+.stage-tools button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.scene{padding:2em 0 1.6em;border-bottom:1px solid var(--line)}
+.scene .wrap{display:grid;gap:1.2em}
+.scene .visual{min-width:0;display:grid;gap:.8em}
+.scene .visual figure{margin:0;background:var(--surface);border:1px solid var(--line-2);border-radius:4px;padding:.6em;min-width:0}
 .scene .visual figure svg{width:100%;height:auto;display:block}
-.scene .visual figcaption{font-size:.82rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.scene .visual figcaption{font-size:.8em;color:var(--muted);margin-top:.4em;line-height:1.4}
 .scene .text{min-width:0}
-.scene .num{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px}
-.scene .num::before{content:"";width:30px;height:6px;background:linear-gradient(90deg,var(--y) 0 20%,var(--ol) 20% 40%,var(--o) 40% 60%,var(--od) 60% 80%,var(--r) 80%)}
-.scene h2{margin-top:10px}
-.scene p.say{font-size:1.14rem;line-height:1.6;max-width:44ch;margin-top:16px}
-.scene p.say b{font-weight:700}
-.scene .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
-.deeper{position:relative;margin-top:18px;border:1px solid var(--line);background:var(--surface);padding:0 16px}
-.deeper summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.scene .num{font-size:.78em;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.scene h2{margin:.3em 0 .4em;font-size:1.35em}
+.scene p.say{font-size:1em;margin:0}
+.scene .tools{display:flex;flex-wrap:wrap;gap:.5em;margin-top:.9em;align-items:center}
+.deeper{margin-top:1em;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);padding:0 1em}
+.deeper summary{cursor:pointer;padding:.7em 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--head)}
 .deeper summary::-webkit-details-marker{display:none}
-.deeper summary::after{content:"+";font-size:1rem;color:var(--muted)}
+.deeper summary::after{content:"+";color:var(--muted)}
 .deeper[open] summary::after{content:"−"}
-.deeper ul{margin:0;padding:0 0 12px 18px;display:grid;gap:7px;font-size:.95rem;max-width:62ch}
-.deeper figure{margin:0 0 12px;background:var(--bg);border:1px solid var(--line);padding:8px}
-.deeper figure img{display:block;width:100%;height:auto;image-rendering:auto}
-.deeper figcaption{font-size:.8rem;color:var(--muted);margin-top:6px;line-height:1.4}
-.deeper .src{font-size:.8rem;color:var(--muted);padding-bottom:12px}
-.deeper .src b{color:var(--fg);font-weight:700}
-.chart .lbl{fill:var(--fg);font-family:var(--body);font-size:12.5px}
-.chart .val{fill:var(--fg);font-family:var(--body);font-size:12px;font-weight:700}
-.chart .small{fill:var(--muted);font-family:var(--body);font-size:10.5px}
+.deeper ul{margin:0;padding:0 0 .8em 1.2em;display:grid;gap:.4em;font-size:.9em}
+.deeper figure{margin:0 0 .8em;background:var(--surface-2);border:1px solid var(--line-2);border-radius:4px;padding:.5em}
+.deeper figure img{display:block;width:100%;height:auto}
+.deeper figcaption{font-size:.78em;color:var(--muted);margin-top:.4em;line-height:1.4}
+.deeper .src{font-size:.8em;color:var(--muted);padding-bottom:.8em}
+.deeper .src b{color:var(--fg)}
+.chart .lbl{fill:var(--fg);font-family:var(--sans);font-size:12.5px}
+.chart .val{fill:var(--head);font-family:var(--mono);font-size:12px}
+.chart .small{fill:var(--muted);font-family:var(--sans);font-size:11px}
 .chart .bar{fill:var(--bar);stroke:none}
-.chart .bar.emph{fill:var(--accent);stroke:none}
-.chart .bar.blue{fill:var(--ink);stroke:none}
-.chart .axis{stroke:var(--ink);stroke-width:1.5}
-.chart .grid{stroke:var(--line);stroke-dasharray:2 3}
-.pipe text{font-family:var(--body);font-size:12px;fill:var(--fg)}
+.chart .bar.emph{fill:var(--accent)}
+.chart .bar.blue{fill:var(--c3-blue)}
+.chart .axis{stroke:var(--line-2);stroke-width:1.5}
+.chart .grid{stroke:var(--line-2);stroke-dasharray:2 3}
+.pipe text{font-family:var(--sans);font-size:12px;fill:var(--fg)}
 .pipe .small{font-size:10.5px;fill:var(--muted)}
 .pipe .box{fill:var(--surface);stroke:var(--fg);stroke-width:1.1}
-.pipe .box.hl{stroke:var(--accent);stroke-width:2.4;fill:color-mix(in oklab,var(--o) 22%,var(--surface));animation:pulse 2.4s ease-in-out infinite}
+.pipe .box.hl{stroke:var(--accent);stroke-width:2.4;fill:color-mix(in oklab,var(--accent) 16%,var(--surface));animation:pulse 2.4s ease-in-out infinite}
 .pipe .arrow{stroke:var(--fg);stroke-width:1.2;fill:none}
 .pipe .dash{stroke:var(--muted);stroke-dasharray:4 4;fill:none}
-.pipe .dot{fill:var(--ink)}
-.pipe .dot.acc{fill:var(--accent)}
+.pipe .dot{fill:var(--c3-blue)} .pipe .dot.acc{fill:var(--accent)}
 @keyframes pulse{0%,100%{stroke-opacity:1}50%{stroke-opacity:.45}}
-.gauge{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.gauge .track{height:14px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
-.gauge .track i{display:block;height:100%;background-image:repeating-linear-gradient(90deg,transparent 0 6px,var(--surface-2) 6px 9px),linear-gradient(90deg,var(--y),var(--ol),var(--o),var(--od),var(--r));width:0;transition:width .15s linear}
-.gauge .val{min-width:9ch;text-align:right;font-size:.95rem;text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
-.counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.counter{position:relative;border:1px solid var(--line);background:var(--surface);padding:14px 12px 12px}
-.counter .v{font-family:var(--display);font-weight:700;font-size:2.3rem;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.counter .k{font-size:.8rem;color:var(--muted);margin-top:8px}
-.counter.acc .v{color:var(--accent)}
+.gauge{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.6em;align-items:center;font-size:.8em;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.gauge .track{height:12px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line-2);border-radius:3px}
+.gauge .track i{display:block;height:100%;background:var(--accent);width:0;transition:width .15s linear}
+.gauge .val{min-width:7em;text-align:right;text-transform:none;letter-spacing:0;color:var(--head);font-family:var(--mono)}
+.numbers{border:1px solid var(--line-2);border-radius:4px;background:var(--surface);padding:.8em 1em}
+.numbers ul{margin:.4em 0 0;padding-left:1.2em;display:grid;gap:.3em;font-size:.9em}
+.record{padding:1.5em 0 0}
+.record h2{margin-top:1em}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7em;margin-top:.5em}
+.card{border:1px solid var(--line-2);border-radius:4px;background:var(--surface);padding:.8em 1em;min-width:0}
+.card .n{font-weight:700;color:var(--head)}
+.card .r{font-size:.75em;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);margin-top:.2em}
+.card .a{font-size:.85em;color:var(--muted);margin-top:.2em}
+.kv{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:.4em .8em;font-size:.9em;margin:.8em 0 0}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+.pubs{list-style:none;margin:.6em 0 0;padding:0}
+.pubs li{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:.6em;font-size:.9em;padding:.5em 0;border-bottom:1px solid var(--line)}
+.pubs .tag{color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
 
 /* 2D animated figures */
 .anim{position:relative}
@@ -161,49 +187,65 @@ button{font:inherit;color:inherit}
 .anim .stage-tools{position:static;margin:8px 0 2px;flex-wrap:wrap;justify-content:flex-start}
 .anim .lane{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
 .anim .tile.dim{fill:var(--c3-dim)} .anim .tile.y{fill:var(--c3-y)} .anim .tile.cr{fill:var(--c3-cr)} .anim .tile.cb{fill:var(--c3-cb)} .anim .tile.held{stroke:var(--accent);stroke-width:2.5}
-
-/* square-dot rail */
-.rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:grid;gap:9px;z-index:20}
-.rail a{width:9px;height:9px;background:var(--line);display:block;transition:transform .2s,background .2s}
-.rail a.active{background:var(--accent);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--accent)}
-.rail a:hover{background:var(--ink)}
-
-/* record */
-.record{padding-block:52px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:14px}
-.card{position:relative;border:1px solid var(--line);background:var(--surface);padding:18px 16px 16px;min-width:0}
-.card::before{content:"";position:absolute;left:0;top:0;width:30px;height:6px;background:linear-gradient(90deg,var(--y) 0 20%,var(--ol) 20% 40%,var(--o) 40% 60%,var(--od) 60% 80%,var(--r) 80%)}
-.card .n{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:-.01em;margin-top:4px}
-.card .r{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-top:5px}
-.card .a{font-size:.88rem;color:var(--muted);margin-top:4px}
-.kv{display:grid;grid-template-columns:140px minmax(0,1fr);gap:8px 14px;font-size:.92rem;margin-top:16px;max-width:70ch}
-.kv dt{color:var(--muted);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding-top:4px}
-.kv dd{margin:0}
-.pubs{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px;max-width:80ch}
-.pubs li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;font-size:.92rem;padding:10px 0;border-bottom:1px solid var(--line)}
-.pubs .tag{font-weight:700;color:var(--muted);font-size:.8rem;letter-spacing:.06em}
-.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-footer{padding-block:0 28px;font-size:.84rem;color:var(--muted)}
-footer .rainbow{margin-bottom:24px}
-footer .wrap{display:grid;gap:6px}
-
-@media (max-width:900px){
-  .hero .wrap{grid-template-columns:1fr}
-  .scene .wrap{grid-template-columns:1fr}
-  .rail{display:none}
-  .c3d{height:320px}
-}
-@media (max-width:520px){ .kv{grid-template-columns:1fr} .c3d{height:280px} .pubs li{grid-template-columns:1fr} h1{font-size:2.2rem} }
-@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} .pipe .box.hl{animation:none} }
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} .pipe .box.hl{animation:none} }
 </style>
 </head>
 <body>
-<div class="top"><div class="wrap">
-  <a class="brand" href="#">VVC in Silicon <span>· my PhD, explained</span></a>
-  <nav aria-label="Pages"><a href="#s1">The story</a><a href="#record">The record</a><a href="explainer.html">The long version</a><a href="platforms.html">Chips 101</a><a href="https://theses.hal.science/tel-04477217" target="_blank" rel="noopener">Thesis PDF</a></nav>
-</div></div>
+<header class="masthead"><div class="masthead__inner">
+  <a class="site-title" href="#about">Ibrahim Farhat</a>
+  <nav class="nav" aria-label="Pages"><a href="#about" data-tab="about">About</a><a href="#publications" data-tab="publications">Publications</a><a href="#phd" data-tab="phd">PhD</a><a href="#contact" data-tab="contact">Contact</a></nav>
+</div></header>
 
-<header class="hero" id="hero">
+<div id="main">
+  <aside class="sidebar">
+    <div class="author__avatar"><img id="avatar" src="assets/profile.jpg" alt="Ibrahim Farhat"><div class="initials" id="initials" hidden>IF</div></div>
+    <div>
+      <h3 class="author__name">Ibrahim Farhat</h3>
+      <p class="author__bio">Senior R&amp;D Researcher at <a href="https://www.tii.ae/" target="_blank" rel="noopener">TII</a>, AIDRC.</p>
+      <ul class="author__urls">
+        <li class="lbl">Follow</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span>Abu Dhabi, UAE</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6 10.6V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.4l-6 3.3-6-3.3z"/></svg><a href="https://scholar.google.com/citations?user=6gbNelQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3.3 6.4H5.2V19h2.1V9.4zM6.3 5.3a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6zM19 13.6c0-2.9-1.6-4.4-3.7-4.4-1.6 0-2.4.9-2.8 1.5V9.4h-2.1V19h2.1v-5.3c0-1.4.7-2.2 1.9-2.2s1.6.9 1.6 2.2V19H19v-5.4z"/></svg><a href="https://www.linkedin.com/in/ibrahim-farhat-470755115/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg><a href="https://github.com/iFarhat93" target="_blank" rel="noopener">GitHub</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zM8.5 9a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM7.6 13.4h8.8c-.4 2.3-2.2 3.8-4.4 3.8s-4-1.5-4.4-3.8z"/></svg><a href="https://huggingface.co/ifarhatTII" target="_blank" rel="noopener">Hugging Face</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.6-8-5.6zM5.4 7l6.6 4.6L18.6 7H5.4z"/></svg><a href="#contact">Email</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <div class="content">
+    <section class="panel" id="panel-about">
+      <h1 class="page__title">About me</h1>
+      <p>I am a Senior R&amp;D Researcher at the <a href="https://www.tii.ae/" target="_blank" rel="noopener">Technology Innovation Institute</a> (TII) in Abu Dhabi, in the AI and Digital Science Research Center (AIDRC). I did my PhD at INSA Rennes, in the IETR laboratory, on hardware designs for the new coding tools of the VVC / H.266 standard, built for a real-time 4K encoder and decoder chip, and I defended it in May 2022.</p>
+      <p>Since then I have moved to AI, worked on 3D reconstruction with NeRF and 3D Gaussian splatting, edge AI and model compression for the Falcon LLM models, and now models and systems for robotic VLAs and agentic coding for robots.</p>
+      <h2>News</h2>
+      <ul class="news">
+        <li><span class="date">2026</span><span>Our patent "Learning based methods for real-time omnidirectional video streaming" (US 19/006,667, with M. K. Sharma and W. Hamidouche) has been accepted.</span></li>
+        <li><span class="date">2026</span><span>Q-Codec, reinforcement-learning-based adaptive encoding for immersive aerial video, accepted at IEEE WCNC 2026; ALRM, an agentic LLM for robotic manipulation, on arXiv.</span></li>
+        <li><span class="date">2025</span><span>The Falcon-H1 technical report is out; the results of our 360° video super-resolution challenge are published in Signal Processing: Image Communication.</span></li>
+        <li><span class="date">2024</span><span>ODVISTA, our omnidirectional video dataset for super-resolution and quality enhancement, accepted at IEEE ICIP 2024.</span></li>
+        <li><span class="date">2024</span><span>Our survey on real-time immersive aerial video streaming is published in the IEEE Open Journal of the Communications Society.</span></li>
+        <li><span class="date">05/2022</span><span>Defended my PhD at INSA Rennes.</span></li>
+      </ul>
+      <h2>Main research interests</h2>
+      <ul class="interests">
+        <li>Edge AI and model quantization.</li>
+        <li>Vision-language-action models: pre-training, supervised fine-tuning and reinforcement learning.</li>
+        <li>Agentic coding for robotic control.</li>
+      </ul>
+    </section>
+
+    <section class="panel" id="panel-publications" hidden>
+      <h1 class="page__title">Publications</h1>
+      <p>Also on <a href="https://scholar.google.com/citations?user=6gbNelQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a>.</p>
+      <h2>2026</h2><blockquote class="pub"><span class="authors">M. K. Sharma, I. Farhat, W. Hamidouche</span>, “<b>Q-Codec: Reinforcement Learning based Adaptive Encoding for Real-Time Streaming of Immersive Aerial Videos</b>”, <span class="venue">IEEE Wireless Communications and Networking Conference (WCNC) 2026</span>. [<a href="https://doi.org/10.1109/WCNC65185.2026.11555145" target="_blank" rel="noopener">doi</a>]</blockquote><blockquote class="pub"><span class="authors">D. Scheinert, A. Acker, T. Wittkopp, S. Becker, H. Yous, K. Reddy, I. Farhat, H. Hacid, O. Kao</span>, “<b>Beyond Microservices: Testing Web-Scale RCA Methods on GPU-Driven LLM Workloads</b>”, <span class="venue">Companion of the 17th ACM/SPEC International Conference on Performance Engineering (ICPE 2026)</span>. [<a href="https://doi.org/10.1145/3777911.3800637" target="_blank" rel="noopener">doi</a>]</blockquote><blockquote class="pub"><span class="authors">V. Gaboardi dos Santos, I. Khadraoui, I. Farhat, H. Yous, S. Teffahi, H. Hacid</span>, “<b>ALRM: Agentic LLM for Robotic Manipulation</b>”, <span class="venue">arXiv preprint 2601.19510</span>. [<a href="https://arxiv.org/abs/2601.19510" target="_blank" rel="noopener">arxiv</a>]</blockquote><h2>2025</h2><blockquote class="pub"><span class="authors">A. Telili, W. Hamidouche, I. Farhat, H. Amirpour, C. Timmerer, I. Khadraoui, J. Lu, T. Le, J. Baek, J. Lee, Y. Wei, X. Sun, Y. Gao, J. Huang, Y. Zhong</span>, “<b>360-degree video super resolution and quality enhancement challenge: Methods and results</b>”, <span class="venue">Signal Processing: Image Communication 138, 117376</span>. [<a href="https://doi.org/10.1016/j.image.2025.117376" target="_blank" rel="noopener">doi</a>]</blockquote><blockquote class="pub"><span class="authors">J. Flerlage, A. Acker, D. Scheinert, S. Becker, H. Yous, K. Reddy, I. Farhat, H. Hacid, O. Kao</span>, “<b>From Intentions to Actions: Workflow Generation with LLMs for Robots</b>”, <span class="venue">3rd International Conference on Foundation and Large Language Models (FLLM 2025)</span>. [<a href="https://doi.org/10.1109/FLLM67465.2025.11391122" target="_blank" rel="noopener">doi</a>]</blockquote><blockquote class="pub"><span class="authors">J. Zuo, M. Velikanov, I. Chahed, Y. Belkada, D. E. Rhayem, G. Kunsch, H. Hacid, H. Yous, B. Farhat, I. Khadraoui, et al. (27 authors)</span>, “<b>Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance</b>”, <span class="venue">Technical report, arXiv preprint 2507.22448</span>. [<a href="https://arxiv.org/abs/2507.22448" target="_blank" rel="noopener">arxiv</a>]</blockquote><blockquote class="pub"><span class="authors">M. K. Sharma, B. Farhat, W. Hamidouche</span>, “<b>Learning based methods for real-time omnidirectional video streaming</b>”, <span class="venue">US patent application 19/006,667</span>. </blockquote><h2>2024</h2><blockquote class="pub"><span class="authors">M. K. Sharma, I. Farhat, C.-F. Liu, N. Sehad, W. Hamidouche, M. Debbah</span>, “<b>Real-Time Immersive Aerial Video Streaming: A Comprehensive Survey, Benchmarking, and Open Challenges</b>”, <span class="venue">IEEE Open Journal of the Communications Society 5, pp. 5680–5705</span>. [<a href="https://doi.org/10.1109/OJCOMS.2024.3455763" target="_blank" rel="noopener">doi</a>] [<a href="https://arxiv.org/abs/2311.00082" target="_blank" rel="noopener">arxiv</a>]</blockquote><blockquote class="pub"><span class="authors">A. Telili, I. Farhat, W. Hamidouche, H. Amirpour</span>, “<b>ODVISTA: An Omnidirectional Video Dataset for Super-Resolution and Quality Enhancement Tasks</b>”, <span class="venue">IEEE International Conference on Image Processing (ICIP) 2024, pp. 131–136</span>. [<a href="https://doi.org/10.1109/ICIP51287.2024.10647612" target="_blank" rel="noopener">doi</a>]</blockquote><blockquote class="pub"><span class="authors">I. Farhat, I. Khadraoui, W. Hamidouche, M. K. Sharma</span>, “<b>Energy Cost of Coding Omnidirectional Videos using ARM and x86 Platforms</b>”, <span class="venue">2nd International ACM Green Multimedia Systems Workshop (GMSys 2024)</span>. [<a href="https://doi.org/10.1145/3652104.3652526" target="_blank" rel="noopener">doi</a>]</blockquote><blockquote class="pub"><span class="authors">M. K. Sharma, I. Farhat, W. Hamidouche</span>, “<b>Error Concealment Capacity Analysis of Standard Video Encoders for Real-Time Immersive Video Streaming from UAVs</b>”, <span class="venue">IEEE Wireless Communications and Networking Conference (WCNC) 2024</span>. [<a href="https://doi.org/10.1109/WCNC57260.2024.10570883" target="_blank" rel="noopener">doi</a>]</blockquote><h2>2023</h2><blockquote class="pub"><span class="authors">I. Farhat, P.-L. Cabarat, W. Hamidouche, P. Angot, P. Gonon, D. Ménard</span>, “<b>Live and Low Energy VVC Video Decoding powered by the OpenVVC Decoder on ARM Platform</b>”, <span class="venue">IEEE ISCAS 2023</span>. [<a href="https://doi.org/10.1109/ISCAS46773.2023.10181412" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-04223048" target="_blank" rel="noopener">hal</a>]</blockquote><blockquote class="pub"><span class="authors">M. Viitanen, J. Sainio, A. Mercat, G. Gautier, J. Vanne, I. Farhat, P.-L. Cabarat, W. Hamidouche, D. Ménard</span>, “<b>Open-Source Toolkit for Live End-to-End 4K VVC Intra Coding</b>”, <span class="venue">ACM MMSys 2023</span>. [<a href="https://doi.org/10.1145/3587819.3593938" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-04163694" target="_blank" rel="noopener">hal</a>]</blockquote><blockquote class="pub"><span class="authors">I. Farhat, P.-L. Cabarat, D. Ménard, W. Hamidouche, O. Déforges</span>, “<b>Energy Efficient VVC Decoding on Mobile Platform</b>”, <span class="venue">IEEE MMSP 2023</span>. [<a href="https://doi.org/10.1109/MMSP59012.2023.10337668" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-04357305" target="_blank" rel="noopener">hal</a>]</blockquote><blockquote class="pub"><span class="authors">A. Saha, W. Hamidouche, M. Chavarrías, F. Pescador, I. Farhat</span>, “<b>Performance analysis of optimized versatile video coding software decoders on embedded platforms</b>”, <span class="venue">Journal of Real-Time Image Processing 20, 120</span>. [<a href="https://doi.org/10.1007/s11554-023-01376-7" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-04329306" target="_blank" rel="noopener">hal</a>]</blockquote><h2>2022</h2><blockquote class="pub"><span class="authors">I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges</span>, “<b>Adaptive Loop Filter Hardware Design for 4K ASIC VVC Decoders</b>”, <span class="venue">IEEE Transactions on Consumer Electronics 68(2), pp. 107–118</span>. [<a href="https://doi.org/10.1109/TCE.2022.3146272" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-03544100" target="_blank" rel="noopener">hal</a>]</blockquote><blockquote class="pub"><span class="authors">I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges</span>, “<b>Efficient HW Design of Adaptive Loop Filter for 4K ASIC VVC Encoder</b>”, <span class="venue">Picture Coding Symposium (PCS) 2022</span>. [<a href="https://doi.org/10.1109/PCS56426.2022.10018078" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-04010994" target="_blank" rel="noopener">hal</a>]</blockquote><h2>2021</h2><blockquote class="pub"><span class="authors">I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges</span>, “<b>Lightweight Hardware Transform Design for the Versatile Video Coding 4K ASIC Decoders</b>”, <span class="venue">IEEE Transactions on Consumer Electronics 67(4), pp. 329–340</span>. [<a href="https://doi.org/10.1109/TCE.2021.3126549" target="_blank" rel="noopener">doi</a>] [<a href="https://hal.science/hal-03443297" target="_blank" rel="noopener">hal</a>]</blockquote><h2>2020</h2><blockquote class="pub"><span class="authors">I. Farhat, W. Hamidouche, A. Grill, D. Ménard, O. Déforges</span>, “<b>Lightweight Hardware Implementation of VVC Transform Block for ASIC Decoder</b>”, <span class="venue">IEEE ICASSP 2020, pp. 1663–1667</span>. [<a href="https://doi.org/10.1109/ICASSP40776.2020.9054281" target="_blank" rel="noopener">doi</a>] [<a href="https://arxiv.org/abs/2002.07461" target="_blank" rel="noopener">arxiv</a>]</blockquote>
+      <h2 id="thesis">My thesis</h2><blockquote class="pub"><b>Efficient hardware designs of the new Versatile Video Coding (VVC) tools for ASIC platforms</b>. INSA Rennes, defended 2022-05-31. [<a href="https://theses.hal.science/tel-04477217" target="_blank" rel="noopener">manuscript, open access</a>] [<a href="https://www.theses.fr/2022ISAR0009" target="_blank" rel="noopener">theses.fr</a>] [<a href="#phd">the explainer</a>]</blockquote><p class="abstract"><b>Abstract.</b> The new MPEG/ITU video coding standard named Versatile Video Coding (VVC) was finalized in July 2020. VVC enables 40% better coding efficiency than its predecessor HEVC standard. This coding gain is brought by several coding tools. The MTS and LFNST are among the key coding tools introduced in VVC for the transform part. In addition, in order to enhance the perceptual quality of the coded frames, VVC adds a new tool to its in-loop filter process called the ALF. In this thesis, hardware implementations for all the above tools targeting ASIC platforms are proposed. They feature all optimisations in order to reduce their cost in terms of chip surface, memory and power consumption. All the proposed solutions were integrated in a real-time professional VVC encoder and decoder. The first contribution is an efficient hardware implementation of the MTS transform: a multi-standard architecture that supports the transform block of recent MPEG standards including AVC, HEVC and VVC, which removes unnecessary complexity found in other architectures by using regular multipliers instead of constant multipliers. Then, for the same context, the LFNST is added to the transform module, leveraging butterfly decomposition, coefficient zeroing and the linear relationship between the transform types. The second contribution is an efficient hardware implementation of the ALF tool. For the decoder, a novel scanning order between Luma and Chroma components significantly reduces the memory. For the encoder, where ALF has a filtering phase and a decision phase, the encoder activates ALF only for Luma samples and for CTUs of size 64, which proved efficient and was integrated in the real-time VVC encoder.</p>
+    </section>
+
+    <section class="panel" id="panel-phd" hidden>
+      <h1 class="page__title">My PhD</h1>
+      <header class="hero" id="hero">
   <div class="wrap">
     <div>
       <div class="eyebrow">PhD · INSA Rennes / IETR · 2019 – 2022</div>
@@ -214,7 +256,6 @@ footer .wrap{display:grid;gap:6px}
       <div class="cta">
         <button class="btn primary" id="playAll">▶ Listen <span class="mono" id="playAllTime"></span></button>
         <a class="btn" href="#s1">Read it ↓</a>
-        <a class="btn" href="explainer.html">The long version</a>
       </div>
     </div>
     <div class="hero3d">
@@ -223,12 +264,9 @@ footer .wrap{display:grid;gap:6px}
       <div class="legend"><span><i style="background:var(--c3-accent)"></i>the blocks I designed</span><span><i style="background:var(--c3-block)"></i>the rest of the chip, simplified</span></div>
     </div>
   </div>
-  <div class="mosaic" id="mosaic" aria-hidden="true"></div>
 </header>
-
-<div class="rail" id="rail" aria-label="Scenes"></div>
-
-<main>
+      <div id="rail" hidden></div>
+      <main>
 <!-- 1 -->
 <section class="scene" id="s1" data-scene="01">
   <div class="wrap">
@@ -354,7 +392,7 @@ footer .wrap{display:grid;gap:6px}
       <span class="num">4 / 10</span>
       <h2>Why a chip and not software</h2>
       <p class="say">Live video has a deadline for every frame. The company I worked with makes fanless encoders for vehicles and portable use, so software was not an option: a processor spends most of its energy moving instructions and data rather than computing. A chip designed for one task avoids that. The drawback is that a chip cannot be changed after manufacture, so the design has to be correct before it is made.</p>
-      <div class="tools"><button class="btn small play" data-scene="04">▶ Listen</button><a class="btn small" href="platforms.html">CPU · GPU · FPGA · ASIC, level by level →</a></div>
+      <div class="tools"><button class="btn small play" data-scene="04">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
           <li>The thesis cites a study by Xilinx: dedicated hardware (FPGA or ASIC) reaches higher quality at lower power than software for real-time video; and the rule of thumb of about 20× the performance of a CPU at about 20× lower power for an ASIC.</li>
@@ -488,7 +526,7 @@ footer .wrap{display:grid;gap:6px}
       <span class="num">9 / 10</span>
       <h2>Results</h2>
       <p class="say">Every block runs at 450 MHz on a 28 nm process with a fixed latency, and matches the reference software bit for bit: a hundred thousand random test vectors for the transforms, complete encoded sequences for the filter. The blocks were integrated in the company’s real-time encoder and decoder, and four papers came out of the work. One limitation: the encoder-side ALF handles only luma and 64×64 blocks, because the full version did not fit the cycle budget.</p>
-      <div class="tools"><button class="btn small play" data-scene="09">▶ Listen</button><a class="btn small" href="explainer.html#step-19">All the numbers, in the long version →</a></div>
+      <div class="tools"><button class="btn small play" data-scene="09">▶ Listen</button></div>
       <details class="deeper"><summary>Go deeper</summary>
         <ul>
           <li>Decoder: inverse MTS 64 RM, 138.9 Kgates; inverse LFNST 64 RM, 109.2 Kgates, 64 Kbit ROM; ALF 26 RM, 66,997 µm², 50.56 Kbit RAM, 9.6 mW at 0.8 V (6.7 mW at 0.65 V for +12 % area).</li>
@@ -521,11 +559,10 @@ footer .wrap{display:grid;gap:6px}
   </div>
 </section>
 </main>
-
-<section class="record" id="record">
+      <section class="record" id="record">
   <div class="wrap">
     <div class="eyebrow">Record</div>
-    <h2 style="margin-top:6px">The record, for reference</h2>
+    <h2>The record, for reference</h2>
     <dl class="kv">
       <dt>Title</dt><dd>Efficient hardware designs of the new Versatile Video Coding (VVC) tools for ASIC platforms<br><span style="color:var(--muted)">Conceptions matérielles efficaces pour des nouveaux outils du standard VVC ciblant les plates-formes ASIC</span></dd>
       <dt>Author</dt><dd>Ibrahim (Brahim) Farhat</dd>
@@ -543,21 +580,29 @@ footer .wrap{display:grid;gap:6px}
     </ol>
     <div class="links">
       <a class="btn primary" href="https://theses.hal.science/tel-04477217" target="_blank" rel="noopener">Thesis manuscript (HAL, open access)</a>
-      <a class="btn" href="explainer.html">The long version · 21 steps, 30 min</a>
-      <a class="btn" href="platforms.html">The Silicon Ladder · CPU, GPU, FPGA, ASIC + quiz</a>
       <a class="btn" href="https://scholar.google.com/citations?user=6gbNelQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a>
       <a class="btn" href="https://www.linkedin.com/in/ibrahim-farhat-470755115/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
 </section>
+    </section>
 
-<footer><div class="rainbow" aria-hidden="true"></div><div class="wrap">
-  <div>I made this page from my manuscript (HAL tel-04477217) and the four papers. The figures in the “Go deeper” panels are from the thesis; the animated figures are my own illustrations of the mechanisms, with the numbers taken from the tables cited under each.</div>
-  <div>The voice is synthetic for now. The chip model uses three.js. Colours follow your system theme.</div>
-</div></footer>
+    <section class="panel contact" id="panel-contact" hidden>
+      <h1 class="page__title">Get in touch</h1>
+      <p>The simplest way is email; LinkedIn messages reach me too.</p>
+      <dl>
+        <dt>Email</dt><dd><span class="mono" id="email">brahim.farhat.co@gmail.com</span><button class="copy" id="copyEmail">copy</button><span id="copied" class="eyebrow" hidden>copied</span></dd>
+        <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/ibrahim-farhat-470755115/" target="_blank" rel="noopener">ibrahim-farhat</a></dd>
+        <dt>Scholar</dt><dd><a href="https://scholar.google.com/citations?user=6gbNelQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">publications and citations</a></dd>
+        <dt>GitHub</dt><dd><a href="https://github.com/iFarhat93" target="_blank" rel="noopener">iFarhat93</a></dd>
+        <dt>Hugging Face</dt><dd><a href="https://huggingface.co/ifarhatTII" target="_blank" rel="noopener">ifarhatTII</a></dd>
+      </dl>
+    </section>
+  </div>
+</div>
 
+<footer class="page__footer">© 2026 Ibrahim Farhat.</footer>
 <audio id="aud" preload="none"></audio>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 (function(){
@@ -840,6 +885,34 @@ footer .wrap{display:grid;gap:6px}
   aud.addEventListener('error', () => { stop(); });
   document.addEventListener('click', e => { const b = e.target.closest('.play'); if (!b) return; if (current === b.dataset.scene && !aud.paused) { aud.pause(); setBtn(current, false); current = null; } else { queue = []; play(b.dataset.scene, false); } });
   playAll.addEventListener('click', () => { if (current || queue.length) { stop(); return; } queue = ids.slice(1); playAll.textContent = '⏹ Stop'; play(ids[0], true); });
+})();
+</script>
+<script>
+(function(){
+  const tabs = ['about', 'publications', 'phd', 'contact'];
+  const links = Array.from(document.querySelectorAll('.nav a[data-tab]'));
+  function show(tab){
+    tabs.forEach(t => { document.getElementById('panel-' + t).hidden = (t !== tab); });
+    links.forEach(a => a.classList.toggle('active', a.dataset.tab === tab));
+    document.title = (tab === 'about' ? 'Ibrahim Farhat' : {publications: 'Publications', phd: 'My PhD', contact: 'Contact'}[tab] + ' · Ibrahim Farhat');
+  }
+  function route(){
+    const h = (location.hash || '#about').slice(1);
+    if (tabs.includes(h)) { show(h); window.scrollTo({top: 0}); return; }
+    const el = document.getElementById(h);
+    if (el) { const panel = el.closest('.panel'); if (panel) show(panel.id.replace('panel-', '')); el.scrollIntoView({block: 'start'}); return; }
+    show('about');
+  }
+  window.addEventListener('hashchange', route); route();
+  const img = document.getElementById('avatar');
+  img.addEventListener('error', () => { img.hidden = true; document.getElementById('initials').hidden = false; });
+  if (img.complete && img.naturalWidth === 0) { img.hidden = true; document.getElementById('initials').hidden = false; }
+  const btn = document.getElementById('copyEmail');
+  btn.addEventListener('click', () => {
+    const t = document.getElementById('email').textContent, ok = () => { const c = document.getElementById('copied'); c.hidden = false; setTimeout(() => c.hidden = true, 1500); };
+    const sel = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById('email')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, sel); else sel();
+  });
 })();
 </script>
 </body>
