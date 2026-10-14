@@ -287,7 +287,9 @@ def page(name, email):
       </ul>
       <h2>Main research interests</h2>
       <ul class="interests">
-        <li>Edge AI and robotic models.</li>
+        <li>Edge AI and model quantization.</li>
+        <li>Vision-language-action models: pre-training, supervised fine-tuning and reinforcement learning.</li>
+        <li>Agentic coding for robotic control.</li>
       </ul>
     </section>
 
