@@ -5,7 +5,7 @@ the thesis *Efficient hardware designs of the new Versatile Video Coding (VVC) t
 (INSA Rennes / IETR, defended 31 May 2022, HAL `tel-04477217`) in ten scenes, with animated figures, a “Go deeper”
 fold under each scene and an optional voice-over.
 
-The site is served as is from `docs/` by GitHub Pages: https://ifarhat93.github.io/ibrahimfarhat/
+The site is served as is from `docs/` by GitHub Pages: https://ifarhat93.github.io/
 
 | path | what it is |
 |------|------------|
